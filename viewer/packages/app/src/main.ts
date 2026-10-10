@@ -20,14 +20,21 @@ async function boot(): Promise<void> {
   const { manifest, graph } = parseManifest(await res.text());
 
   const metrics = new Metrics();
+  // URL overrides so a run is fully described by its URL (useful on a phone: no sliders to set).
+  //   decode=createImageBitmap|imageDecoder  pm=premultiply|none|default  cache=<maxItems>  conc=<n>  budget=<n>
+  const num = (k: string): number | null => (params.has(k) && Number.isFinite(Number(params.get(k))) ? Number(params.get(k)) : null);
   const loaderOpt: LoaderOpt = { ...DEFAULT_LOADER_OPT };
+  const decodeP = params.get('decode');
+  if (decodeP === 'createImageBitmap' || decodeP === 'imageDecoder') loaderOpt.strategy = decodeP;
+  const pmP = params.get('pm');
+  if (pmP === 'premultiply' || pmP === 'none' || pmP === 'default') loaderOpt.premultiply = pmP;
   const view = new CanvasView($('view') as HTMLCanvasElement, manifest.image.width / manifest.image.height);
   const hasLow = Boolean(manifest.frames.nodeLow && manifest.image.low);
 
   let controller: Controller<Frame> | null = null;
   const cache = new FrameCache<Frame>(
     makeLoader(manifestUrl, makeUrlOf(manifest.frames, false), () => loaderOpt, metrics),
-    { maxItems: 48, concurrency: 6 },
+    { maxItems: num('cache') ?? 48, concurrency: num('conc') ?? 6 },
     {
       onReady: (k) => controller?.onReady(k),
       onFail: (k, e) => { metrics.inc('fail'); console.warn('load failed', k, e); },
@@ -59,6 +66,7 @@ async function boot(): Promise<void> {
 
   controller = new Controller<Frame>(graph, manifest.start.node, cache, lowCache, show, metrics, () => performance.now(), {
     ...DEFAULT_CONTROLLER_OPT,
+    budget: num('budget') ?? DEFAULT_CONTROLLER_OPT.budget,
   });
 
   layout(view);

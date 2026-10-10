@@ -4,6 +4,8 @@
 
 - [spec-manifest-v0.md](spec-manifest-v0.md) — manifest / 座標 / グラフ / resolve の仕様(v0)
 - [decisions.md](decisions.md) — 開発上の決定ログ(発案ノートからの変更点を含む)
+- [test-strategy.md](test-strategy.md) — 実測テストの規模の落とし方と、この環境で測れないこと
+- [measurements.md](measurements.md) — 実測の記録(撮影・パック・ビューア)。数値は測った環境つき
 
 ## システムとデータの流れ
 
@@ -34,6 +36,7 @@ python/knokin_packer/  パッカー(EXR→AVIF、低解像度ノード画像、�
 | 3 | ビューア純関数 `move`/`frameAt`/`prefetch` + テストケースJSON | 完了 |
 | 4 | パッカー(机上検証: 合成EXRで往復・冪等性・欠落検出) | 完了 |
 | 5 | ビューア描画・入力・計測(机上テスト + 合成データで Chromium 動作確認) | 完了 |
+| 6 | 縮小規模での実測(bpy 実 Cycles、1080p 100枚、AVIF、Chromium)と、実機計測の入口 | 進行中 |
 
 ## 開発コマンド
 
