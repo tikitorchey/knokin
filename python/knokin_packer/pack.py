@@ -232,7 +232,7 @@ def write_final_manifest(
         render["capture"] = json.loads(meta_path.read_text(encoding="utf-8"))
     render["pack"] = {
         "version": PACK_VERSION, "avif": asdict(settings.avif), "lowWidth": settings.low_width,
-        "partial": bool(skip),
+        "bleed": settings.bleed, "partial": bool(skip),
     }
     manifest.render = render
     image = dict(manifest.image)

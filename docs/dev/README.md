@@ -2,7 +2,13 @@
 
 発案ノート([`../ideas/`](../ideas/README.md))を基に、開発用に確定させた内容。食い違いは本ディレクトリが優先。
 
-- [spec-manifest-v0.md](spec-manifest-v0.md) — manifest / 座標 / グラフ / resolve の仕様(v0)
+- [spec-manifest-v0.md](spec-manifest-v0.md) — manifest / 座標 / グラフ / resolve / 移動ロジックの仕様(v0)
+- システム仕様(現在どうなっているか。経緯は research-notes へ):
+  - [system-core.md](system-core.md) — 共有コア(`knokin_core`)、本番グラフの規模、Python と TS の一致の仕組み
+  - [system-capture.md](system-capture.md) — 撮影(Blender アドオン、ジョブ状態、再開、GPU)
+  - [system-packer.md](system-packer.md) — パッカー(EXR→AVIF、色変換、冪等性、既定値)
+  - [system-viewer.md](system-viewer.md) — ビューア(純関数コア、アプリ、URL パラメータ、計測)
+- [research-notes.md](research-notes.md) — 開発の経緯、課題と選んだアプローチ、発見した注意点、誤りと教訓
 - [decisions.md](decisions.md) — 開発上の決定ログ(発案ノートからの変更点を含む)
 - [test-strategy.md](test-strategy.md) — 実測テストの規模の落とし方と、この環境で測れないこと
 - [android-measurement.md](android-measurement.md) — Android 実機計測と操作感調整の手順書(実機は未実施)
