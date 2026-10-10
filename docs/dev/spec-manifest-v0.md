@@ -102,8 +102,53 @@ masters/e/{edge}/{i:04d}.exr
 - ログ末尾の途中切れ行は無視する。作業ディレクトリの再開時に残った `*.part.*` は削除する。
 - `render_meta.json` の内容は、パッカーが最終 manifest の `render` に取り込む(撮影中は manifest を書き換えない)。
 
-## 8. 未確定(後続セッションで決める)
+## 8. 移動ロジック(ビューアの純関数)
 
-- `move` の規則詳細(`MoveOpt`、`Heading`、不感帯の定義、cosφ の適用位置)。
+実装: `viewer/packages/core/src/`(`move.ts` `frameAt.ts` `prefetch.ts`)。正解データ: `testdata/move_cases/*.json`(規則から手計算で作成)。
+
+### 状態
+
+```ts
+State   = { pos: Pos, heading: [x,y], acc: [x,y] }
+Pos     = { at:'node', node } | { at:'edge', edge, t }   // t は 0..frames-1 の実数(辺の内部は 0<t<frames-1)
+heading = 直前に動いた画面方向(単位ベクトル。不明なら [0,0])
+acc     = ノードの上で溜めたドラッグ量(px)。辺の上では常に [0,0]
+```
+
+### 画面方向
+
+画面は x 右・y 下。右ドラッグで θ 減少、下ドラッグで φ 増加。角度差 (Δθ, Δφ) の画面ベクトルは `(−Δθ·cosφ, Δφ)`。
+
+- 辺の接線 T(t 増加方向)と 1 フレームあたりの角度 L は、**その時点の φ**(辺上では現在の t の φ)で計算する。
+- ノードから出る方向は、ノードの φ で計算する(辺の `to` 側から出るときは delta の符号を反転)。
+
+### move(graph, state, drag{dx,dy}, opt) → State
+
+`MoveOpt` 初期値: `degPerPx=0.25`(感度)、`turnPx=12`(曲がりに要るドラッグ量)、`deadZoneDeg=45`、`stickyDeg=15`。
+
+1. **辺の上**: ドラッグを T に射影した s(px)だけを使う(垂直成分は捨てる)。`t += s·degPerPx / L`。端点を超えたら端点のノードで止め、使い切れなかった分(px)を `acc` に持ち越す。
+2. **ノードの上**: ドラッグを `acc` に加える。接続辺それぞれの出る方向 u との角度を `acc` から測る。
+   - 最小角の辺を best とする。
+   - `heading` と `stickyDeg` 以内で揃う辺があれば straight(直進辺)。`acc` との角度が best より `stickyDeg` 以内に収まるなら、best の代わりに straight を選ぶ(ヒステリシス)。
+   - 選んだ辺が straight で `acc` との角度が `stickyDeg` 以内なら、そのまま進む(ノードで止まらない)。それ以外は `|acc| ≥ turnPx` が必要(粘り)。
+   - 選んだ辺との角度が `deadZoneDeg` を超えるなら動かない(行き止まり。`|acc|` は `turnPx` に切り詰めて、逆向きに戻しやすくする)。
+   - 進むときは、その辺の端(`from` なら t=0、`to` なら t=frames−1)に入り、`acc` を辺の上のドラッグとして消費する。
+3. 1 回の呼び出しで複数の辺をまたいでよい(上限 64 ホップ)。
+
+×構成の内部ノードは 8 方向なので、最寄りの辺との差は最大 22.5° となり、不感帯は φ 端などの行き止まりでだけ働く。高緯度(φ=60° で cosφ=0.5)では、画面上の 8 方向は均等でなくなる。
+
+### frameAt(graph, pos) → FrameRef
+
+`round(t)`(.5 は切り上げ)を 0..frames−1 に収める。端点ならノード参照、途中なら辺参照。クロスフェードはしない。
+
+### prefetch(graph, state, budget, opt) → FrameRef[]
+
+優先度順で最大 `budget` 件。現在のフレームと重複は含めない。`PrefetchOpt`: `fanFrames=3`、`behindFrames=2`。
+
+- **辺の上**: 進行方向(`heading` と T の内積の符号。`heading` が不明なら t 増加方向)に最大 `ceil(budget/2)` 枚。端点に届けばそのノードまで。続いて、そのノードの他の接続辺の先頭 `fanFrames` 枚を、ランク順に巡回して取る(辺は `heading` に近い順、同角度は辺 ID 順)。最後に後方 `behindFrames` 枚。
+- **ノードの上**: 全接続辺の先頭から、同じ巡回順で `budget` まで。
+
+## 9. 未確定(後続セッションで決める)
+
 - `render` の具体フィールド、マスター(EXR)の配置、JSONLログの形式。
 - 影キャッチャーレイヤー(D03)、重点エリア用の `span`/`stride`。
