@@ -1,0 +1,311 @@
+{
+ "manifest": "../manifests/grid30_cross.json",
+ "opt": {
+  "fanFrames": 3,
+  "behindFrames": 2
+ },
+ "cases": [
+  {
+   "name": "ahead (half of budget) then behind",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "budget": 5,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 11
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 12
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 13
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 9
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 8
+    }
+   ]
+  },
+  {
+   "name": "no heading: assume increasing t",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    }
+   },
+   "budget": 4,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 11
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 12
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 9
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 8
+    }
+   ]
+  },
+  {
+   "name": "heading against the edge: look towards decreasing t",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     1,
+     0
+    ]
+   },
+   "budget": 4,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 9
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 8
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 11
+    },
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 12
+    }
+   ]
+  },
+  {
+   "name": "near the end node: ahead, node, then fan-out by alignment with heading (3 deep, round-robin)",
+   "note": "n025 edges ordered e0026(0deg) e0163,e0209(45) e0066,e0067(90) e0160,e0206(135); e0025 itself skipped",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 28
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "budget": 12,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 29
+    },
+    {
+     "kind": "node",
+     "node": "n025"
+    },
+    {
+     "kind": "edge",
+     "edge": "e0026",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0163",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0209",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0066",
+     "i": 29
+    },
+    {
+     "kind": "edge",
+     "edge": "e0067",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0160",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0206",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0026",
+     "i": 2
+    },
+    {
+     "kind": "edge",
+     "edge": "e0163",
+     "i": 2
+    },
+    {
+     "kind": "edge",
+     "edge": "e0209",
+     "i": 2
+    }
+   ]
+  },
+  {
+   "name": "going backwards into the from node",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 2
+    },
+    "heading": [
+     1,
+     0
+    ]
+   },
+   "budget": 10,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0025",
+     "i": 1
+    },
+    {
+     "kind": "node",
+     "node": "n024"
+    },
+    {
+     "kind": "edge",
+     "edge": "e0036",
+     "i": 29
+    },
+    {
+     "kind": "edge",
+     "edge": "e0204",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0250",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0062",
+     "i": 29
+    },
+    {
+     "kind": "edge",
+     "edge": "e0063",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0159",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0205",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0036",
+     "i": 28
+    }
+   ]
+  },
+  {
+   "name": "resting on a node: all incident edges round-robin, aligned with heading first",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n025"
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "budget": 4,
+   "expect": [
+    {
+     "kind": "edge",
+     "edge": "e0026",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0163",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0209",
+     "i": 1
+    },
+    {
+     "kind": "edge",
+     "edge": "e0066",
+     "i": 29
+    }
+   ]
+  },
+  {
+   "name": "zero budget",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n025"
+    }
+   },
+   "budget": 0,
+   "expect": []
+  }
+ ]
+}

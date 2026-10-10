@@ -1,0 +1,21 @@
+[project]
+name = "knokin-core"
+version = "0.0.1"
+description = "Knokin Turn Table: bpy-independent core shared by the capture add-on and the packer"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+packer = ["numpy", "pillow>=11.3", "OpenEXR>=3.3"]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["knokin_core", "knokin_packer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

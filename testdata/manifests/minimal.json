@@ -1,0 +1,32 @@
+{
+  "schema": "knokin-turntable/0",
+  "meta": { "title": "minimal", "created": "2026-10-10", "generator": "hand-written" },
+  "coords": {
+    "unit": "deg",
+    "up": "+Z",
+    "thetaZero": "camera-at -Y",
+    "thetaDir": "ccw-from-above",
+    "phiDir": "up-positive"
+  },
+  "camera": { "projection": "perspective", "focalMm": 85, "sensorWidthMm": 36, "distance": 3.0, "pivot": [0, 0, 0.9] },
+  "image": { "width": 1920, "height": 1080, "alpha": "premultiplied", "colorSpace": "sRGB" },
+  "frames": {
+    "codec": "image-seq",
+    "format": "avif",
+    "base": "frames/",
+    "node": "n/{node}.avif",
+    "nodeLow": "n-low/{node}.avif",
+    "edge": "e/{edge}/{i:04d}.avif"
+  },
+  "nodes": [
+    { "id": "n000", "theta": 0, "phi": 0 },
+    { "id": "n001", "theta": 30, "phi": 0 },
+    { "id": "n002", "theta": 0, "phi": 30 }
+  ],
+  "edges": [
+    { "id": "e0001", "kind": "lat", "from": "n000", "to": "n001", "delta": [30, 0], "frames": 31 },
+    { "id": "e0002", "kind": "lon", "from": "n000", "to": "n002", "delta": [0, 30], "frames": 31 },
+    { "id": "e0003", "kind": "diag", "from": "n002", "to": "n001", "delta": [30, -30], "frames": 31 }
+  ],
+  "start": { "node": "n000" }
+}

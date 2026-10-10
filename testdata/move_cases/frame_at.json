@@ -1,0 +1,66 @@
+{
+ "manifest": "../manifests/grid30_cross.json",
+ "cases": [
+  {
+   "name": "edge t=10.4 rounds down",
+   "pos": {
+    "at": "edge",
+    "edge": "e0025",
+    "t": 10.4
+   },
+   "expect": {
+    "kind": "edge",
+    "edge": "e0025",
+    "i": 10
+   }
+  },
+  {
+   "name": "edge t=10.5 rounds up",
+   "pos": {
+    "at": "edge",
+    "edge": "e0025",
+    "t": 10.5
+   },
+   "expect": {
+    "kind": "edge",
+    "edge": "e0025",
+    "i": 11
+   }
+  },
+  {
+   "name": "t near 0 is the from node",
+   "pos": {
+    "at": "edge",
+    "edge": "e0025",
+    "t": 0.4
+   },
+   "expect": {
+    "kind": "node",
+    "node": "n024"
+   }
+  },
+  {
+   "name": "t near the end is the to node",
+   "pos": {
+    "at": "edge",
+    "edge": "e0025",
+    "t": 29.6
+   },
+   "expect": {
+    "kind": "node",
+    "node": "n025"
+   }
+  },
+  {
+   "name": "node position",
+   "pos": {
+    "at": "node",
+    "node": "n048"
+   },
+   "expect": {
+    "kind": "node",
+    "node": "n048"
+   }
+  }
+ ]
+}

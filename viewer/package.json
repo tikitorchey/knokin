@@ -1,0 +1,19 @@
+{
+  "name": "knokin-viewer",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm test -w @knokin/core -w @knokin/app",
+    "typecheck": "npm run typecheck -w @knokin/core -w @knokin/app",
+    "dev": "npm run dev -w @knokin/app",
+    "build": "npm run build -w @knokin/app"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

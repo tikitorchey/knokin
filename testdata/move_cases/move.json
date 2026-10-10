@@ -1,0 +1,410 @@
+{
+ "description": "move(): hand-derived from docs/dev/spec-manifest-v0.md section 8. Each case applies drags in order.",
+ "manifest": "../manifests/grid30_cross.json",
+ "opt": {
+  "degPerPx": 0.25,
+  "turnPx": 12,
+  "deadZoneDeg": 45,
+  "stickyDeg": 15
+ },
+ "cases": [
+  {
+   "name": "lat: left drag from a node advances along the lat edge (1 deg/frame, 0.25 deg/px)",
+   "note": "n024=(theta0,phi0), e0025 -> n025 (theta30). 40px*0.25deg=10 frames",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n024"
+    }
+   },
+   "drags": [
+    [
+     -40,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     -1,
+     0
+    ],
+    "acc": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "reverse drag moves back along the edge",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     20,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 5
+    },
+    "heading": [
+     1,
+     0
+    ]
+   }
+  },
+  {
+   "name": "perpendicular drag on an edge is ignored",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     0,
+     30
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 10
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "name": "straight through a node does not stall",
+   "note": "1 frame left to n025 uses 4px; remaining 16px continue on e0026",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 29
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     -20,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0026",
+     "t": 4
+    },
+    "heading": [
+     -1,
+     0
+    ],
+    "acc": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "stickiness: a short drag from rest keeps the node and accumulates",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n024"
+    }
+   },
+   "drags": [
+    [
+     -8,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "node",
+     "node": "n024"
+    },
+    "heading": [
+     0,
+     0
+    ],
+    "acc": [
+     -8,
+     0
+    ]
+   }
+  },
+  {
+   "name": "stickiness: two short drags together exceed turnPx",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n024"
+    }
+   },
+   "drags": [
+    [
+     -8,
+     0
+    ],
+    [
+     -8,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 4
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "name": "turn 90 degrees at a node (lon up from n025)",
+   "note": "heading is lat; drag down is 90deg off straight so no stickiness bonus; e0067 goes phi 0->30",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n025"
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     0,
+     30
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0067",
+     "t": 7.5
+    },
+    "heading": [
+     0,
+     1
+    ]
+   }
+  },
+  {
+   "name": "diagonal exit (SW-lattice diag e0205, 1.414 deg/frame)",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n024"
+    }
+   },
+   "drags": [
+    [
+     -40,
+     40
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0205",
+     "t": 10
+    }
+   }
+  },
+  {
+   "name": "sticky straight: 28.5deg off straight but only 16.5deg off a diagonal -> keeps going straight",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n025"
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     -35,
+     19
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0026",
+     "t": 8.75
+    }
+   }
+  },
+  {
+   "name": "same drag without a heading takes the better-aligned diagonal e0209",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n025"
+    }
+   },
+   "drags": [
+    [
+     -35,
+     19
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0209",
+     "t": 6.75
+    }
+   }
+  },
+  {
+   "name": "dead end: phi=60 row, drag down has no edge within 45deg; position stays, acc capped to turnPx",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n048"
+    }
+   },
+   "drags": [
+    [
+     0,
+     40
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "node",
+     "node": "n048"
+    },
+    "heading": [
+     0,
+     0
+    ],
+    "acc": [
+     0,
+     12
+    ]
+   }
+  },
+  {
+   "name": "high latitude: theta is shortened by cos(phi) (0.5 deg/frame at phi=60)",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n048"
+    }
+   },
+   "drags": [
+    [
+     -20,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0049",
+     "t": 10
+    }
+   }
+  },
+  {
+   "name": "latitude wraps past theta=360 (n035 theta=330 -> n024 theta=0)",
+   "start": {
+    "pos": {
+     "at": "node",
+     "node": "n035"
+    }
+   },
+   "drags": [
+    [
+     -40,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0036",
+     "t": 10
+    }
+   }
+  },
+  {
+   "name": "reverse past the start node continues onto the previous lat edge",
+   "note": "2 frames back to n024 (8px), 12px left over -> e0036 from its far end: t=30-3",
+   "start": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0025",
+     "t": 2
+    },
+    "heading": [
+     -1,
+     0
+    ]
+   },
+   "drags": [
+    [
+     20,
+     0
+    ]
+   ],
+   "expect": {
+    "pos": {
+     "at": "edge",
+     "edge": "e0036",
+     "t": 27
+    },
+    "heading": [
+     1,
+     0
+    ],
+    "acc": [
+     0,
+     0
+    ]
+   }
+  }
+ ]
+}
