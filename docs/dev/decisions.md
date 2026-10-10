@@ -37,3 +37,10 @@
 | DD31 | 描画 | 最新の1枚だけを `requestAnimationFrame` で描く。遅延 = ポインタイベント時刻 → 描画直後 | 入力から表示までの実遅延を測るため |
 | DD32 | デコード方式 | `createImageBitmap`(既定)と `ImageDecoder` を実行時に切替。`premultiplyAlpha` も切替(premultiply/none/default) | D-測定項目。どちらが速いか・縁が正しいかは実機で決める |
 | DD33 | デバッグUI | `?dbg=1` でHUD(遅延/取得/デコードの p50・p95、ヒット率、デコード済み枚数、ヒープ)と MoveOpt/prefetch/キャッシュのスライダー、メトリクスJSONの書き出し | 実機で値を詰める作業を1画面で |
+| DD34 | `image.alpha` の既定 | **`straight`**(新規撮影)。`premultiplied` で AVIF 化するとパッカーが警告を出す | 実測(Chromium 実デコード、1080p、q60 4:2:0): 縁の帯の PSNR が straight 39.0 dB に対し premultiplied 25.6 dB、最大誤差 44 対 83。premultiplied は「色 ≤ α」が前提で、α≈0 の画素に量子化誤差が出ると色が 255 に飛び、暗い背景で明るい点になる(例: 元 `[0 0 0 0]` → 復号 `[255 0 0 1]`)。straight なら α≈0 の色は表示に効かない。→ measurements.md §3 |
+| DD35 | `premultiplyAlpha` の既定 | `createImageBitmap` の `premultiply`(= 現状)のまま。3種(premultiply / none / default)と ImageDecoder は、canvas に合成した結果が同一(PSNR 差 0.1 dB 以内) | 見た目の差は出なかった。速度差は §4 で別に測る。straight の AVIF なら、どのモードでも縁に暗い輪郭は出ない |
+| DD36 | 影キャッチャー(D03) | **使わない**。背景は透明のまま、影は付けない | 影キャッチャーは「地面」として不透明物扱いになり、カメラが地面の下に来る φ<0 では被写体が隠れて画像が空になる(確認済み。`measurements/` の `coord-check.png` と同条件で再現)。φ±60° の仕様と両立しない。接地影が要る作品は、被写体の下に影を焼き込んだ別レイヤーとして φ≥0 の範囲限定で後日検討 |
+| DD37 | `--device GPU` | 使える Cycles GPU が無ければ **エラーで止める**(CPU に黙って落ちない)。有効にしたデバイス名は `render_meta.json` の `settings.gpu_devices` に残す | 従来は `cy.device='GPU'` を設定するだけで、環境設定(compute_device_type とデバイスの `use`)が無かったため、GPU 指定でも CPU で撮り続ける実装だった。この環境には GPU が無いため、実GPUでの動作は**未検証**(エラー経路のみ自動テスト) |
+| DD38 | シード方針 | 既定 `fixed` を維持。`per-frame` は使わない | 実測(480×270、16spp、θ 1°刻みの6枚): 隣接フレームの残差相関が fixed 0.78 / per-frame 0.04。フレーム間差の RMS は基準(ノイズなし)1.43 に対し、fixed 1.64(+0.20)、per-frame 2.15(+0.72)。per-frame はスクラブ時のちらつきが約3.5倍。デノイズ後は fixed 1.55 / per-frame 1.83 |
+| DD39 | 縁の色にじみ(bleed) | `PackSettings.bleed`(straight のみ、α=0 の画素へ縁の色を N px 広げる)を用意するが、**既定は 0** | 実測(4:2:0、q60): bleed=2 で縁の PSNR +1.8 dB に対しサイズ +14%、4 以上はサイズだけ増える。4:4:4 では効果がほぼ無い。割に合わない |
+| DD40 | 座標の向き(DD04)の実描画確認 | 仕様どおり。変更なし | Blender 実カメラ(`place_camera` → Cycles)で、非対称テストシーンの8視点を描画し目視: θ=0 でカメラ -Y 側(黄の鼻が手前、赤 +X が右)、θ=90 で +X 側(白い先端が手前、緑 +Y が右)、θ=180 で +Y 側、θ=270 で -X 側。φ=+45 で見下ろし、φ=-45 で見上げ。→ `measurements/coord-check.png` |
