@@ -64,8 +64,15 @@ async function boot(): Promise<void> {
     queued = e;
   };
 
+  //   dpp=<degPerPx> turn=<turnPx> dead=<deadZoneDeg> sticky=<stickyDeg>  (feel tuning without sliders)
+  const mv = { ...DEFAULT_CONTROLLER_OPT.move };
+  mv.degPerPx = num('dpp') ?? mv.degPerPx;
+  mv.turnPx = num('turn') ?? mv.turnPx;
+  mv.deadZoneDeg = num('dead') ?? mv.deadZoneDeg;
+  mv.stickyDeg = num('sticky') ?? mv.stickyDeg;
   controller = new Controller<Frame>(graph, manifest.start.node, cache, lowCache, show, metrics, () => performance.now(), {
     ...DEFAULT_CONTROLLER_OPT,
+    move: mv,
     budget: num('budget') ?? DEFAULT_CONTROLLER_OPT.budget,
   });
 
@@ -169,10 +176,15 @@ function setupDebug(
     const r = await runBench(c, DEFAULT_BENCH_OPT, () => { peakHeap = Math.max(peakHeap, heapMB() ?? 0); });
     scripted = { path: DEFAULT_BENCH_OPT.path, speedPxPerSec: DEFAULT_BENCH_OPT.speedPxPerSec, wallMs: r.wallMs };
     (window as unknown as { __knokinBench: unknown }).__knokinBench = report();
+    showJson(JSON.stringify(report(), null, 2));
     btn.disabled = false;
   };
+  // Plain-http LAN pages cannot use the clipboard API and downloads are awkward on phones: also show the JSON.
+  const showJson = (json: string) => { ($('json') as HTMLTextAreaElement).value = json; };
   $('export').onclick = () => {
-    const blob = new Blob([JSON.stringify(report(), null, 2)], { type: 'application/json' });
+    const json = JSON.stringify(report(), null, 2);
+    showJson(json);
+    const blob = new Blob([json], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'knokin-metrics.json';

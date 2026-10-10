@@ -34,3 +34,35 @@ def encode_rgba8(rgba: np.ndarray, alpha_mode: str) -> np.ndarray:
         enc = enc * a
     out = np.concatenate([enc, a], axis=-1)
     return np.rint(out * 255.0).astype(np.uint8)
+
+
+def bleed_straight(rgba8: np.ndarray, iters: int) -> np.ndarray:
+    """Straight-alpha only: fill the colour of fully transparent pixels from their opaque neighbours.
+
+    Invisible pixels keep alpha 0, so the picture is unchanged; but the codec (chroma subsampling, DCT ringing) then
+    blends edge colour with a smooth continuation instead of with black, which removes dark/odd fringes at the
+    silhouette. `iters` = how many pixels outward to fill (each pass grows the filled area by 1px).
+    """
+    if iters <= 0:
+        return rgba8
+    out = rgba8.copy()
+    col = out[..., :3].astype(np.float32)
+    known = (out[..., 3] > 0).astype(np.float32)
+    if known.all() or not known.any():
+        return out
+    h, w = known.shape
+
+    def box(x: np.ndarray) -> np.ndarray:  # 3x3 sum, zero padded
+        p = np.pad(x, [(1, 1), (1, 1)] + [(0, 0)] * (x.ndim - 2))
+        return sum(p[dy : dy + h, dx : dx + w] for dy in range(3) for dx in range(3))
+
+    for _ in range(iters):
+        wsum = box(known)
+        fill = (known == 0) & (wsum > 0)
+        if not fill.any():
+            break
+        avg = box(col * known[..., None]) / np.maximum(wsum, 1)[..., None]
+        col[fill] = avg[fill]
+        known = np.where(fill, 1.0, known)
+    out[..., :3] = np.rint(col).astype(np.uint8)
+    return out

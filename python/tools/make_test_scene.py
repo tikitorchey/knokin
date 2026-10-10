@@ -31,7 +31,7 @@ def put(obj, m):
     return obj
 
 
-def build(shadow_catcher: bool):
+def build(shadow_catcher: bool, busy: bool = False, busy_scale: float = 1.9):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     ctr = (0, 0, 0.9)
@@ -52,6 +52,24 @@ def build(shadow_catcher: bool):
     put(bpy.context.object, blue)  # +Z mast
     bpy.ops.mesh.primitive_cube_add(size=0.18, location=(0, 0, 1.85))
     put(bpy.context.object, blue)
+
+    if busy:  # stress case for codec size: a big body covered by high-frequency colour noise + bump (fills ~40% of a 16:9 frame)
+        body = bpy.context.scene.objects[0]
+        body.scale = (busy_scale,) * 3
+        m = body.data.materials[0]
+        nt = m.node_tree
+        noise = nt.nodes.new("ShaderNodeTexNoise")
+        noise.inputs["Scale"].default_value = 60
+        noise.inputs["Detail"].default_value = 12
+        ramp = nt.nodes.new("ShaderNodeValToRGB")
+        ramp.color_ramp.elements[0].color = (0.05, 0.1, 0.4, 1)
+        ramp.color_ramp.elements[1].color = (0.95, 0.75, 0.3, 1)
+        nt.links.new(noise.outputs["Fac"], ramp.inputs["Fac"])
+        nt.links.new(ramp.outputs["Color"], nt.nodes["Principled BSDF"].inputs["Base Color"])
+        bump = nt.nodes.new("ShaderNodeBump")
+        bump.inputs["Strength"].default_value = 0.6
+        nt.links.new(noise.outputs["Fac"], bump.inputs["Height"])
+        nt.links.new(bump.outputs["Normal"], nt.nodes["Principled BSDF"].inputs["Normal"])
 
     # key light (sun) + world fill. Lighting is world-fixed (spec: lighting does not follow the camera).
     sun = bpy.data.objects.new("sun", bpy.data.lights.new("sun", "SUN"))
@@ -75,7 +93,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
     ap.add_argument("--shadow-catcher", action="store_true")
+    ap.add_argument("--busy", action="store_true", help="large high-frequency-textured body (codec stress case)")
+    ap.add_argument("--busy-scale", type=float, default=1.9)
     a = ap.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:])
-    build(a.shadow_catcher)
+    build(a.shadow_catcher, a.busy, a.busy_scale)
     bpy.ops.wm.save_as_mainfile(filepath=str(Path(a.out).resolve()))
     print("saved", a.out)
