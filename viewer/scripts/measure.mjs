@@ -14,13 +14,21 @@ const browser = await chromium.launch({ executablePath: exe, args: ['--enable-pr
 const results = [];
 for (const v of variants.length ? variants : ['']) {
   const page = await (await browser.newContext({ viewport: { width: 900, height: 560 } })).newPage();
+  // Emulation only (NOT a phone): CPU_SLOWDOWN=4 slows the main thread 4x; NET="kbps,rttMs" shapes the network.
+  const cdp = await page.context().newCDPSession(page);
+  if (process.env.CPU_SLOWDOWN) await cdp.send('Emulation.setCPUThrottlingRate', { rate: Number(process.env.CPU_SLOWDOWN) });
+  if (process.env.NET) {
+    const [kbps, rtt] = process.env.NET.split(',').map(Number);
+    await cdp.send('Network.enable');
+    await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: rtt, downloadThroughput: (kbps * 1000) / 8, uploadThroughput: (kbps * 1000) / 8 });
+  }
   const url = `${base}${base.includes('?') ? '&' : '?'}dbg=1&bench=1&tag=${encodeURIComponent(v || 'default')}${v ? '&' + v : ''}`;
   await page.goto(url);
   await page.waitForFunction(() => window.__knokinBench, null, { timeout: 120000 });
   const r = await page.evaluate(() => window.__knokinBench);
   results.push({ variant: v || 'default', ...r });
   const f = (s) => `p50 ${s.p50.toFixed(1)} p95 ${s.p95.toFixed(1)}`;
-  console.log(`${(v || 'default').padEnd(36)} latency ${f(r.latency)}  fetch ${f(r.fetchMs)}  decode ${f(r.decodeMs)}  hit ${(r.hitRate * 100).toFixed(0)}%  miss ${r.counters.miss ?? 0} fail ${r.counters.fail ?? 0} heap-peak ${r.peakHeapMB?.toFixed(0)}MB`);
+  console.log(`${(v || 'default').padEnd(36)} latency ${f(r.latency)}  fetch ${f(r.fetchMs)}  decode ${f(r.decodeMs)}  hit ${(r.hitRate * 100).toFixed(0)}%  miss ${r.counters.miss ?? 0} fail ${r.counters.fail ?? 0} heap-peak ${r.peakHeapMB?.toFixed(0)}MB decoded-peak ${r.peakDecodedMB?.toFixed(0)}MB`);
   await page.close();
 }
 await browser.close();

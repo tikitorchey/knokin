@@ -53,6 +53,7 @@ def main():
     ap.add_argument("--height", type=int, default=270)
     ap.add_argument("--spp", default="4,8,16,32,64,128")
     ap.add_argument("--ref-spp", type=int, default=512)
+    ap.add_argument("--no-extras", action="store_true", help="skip the persistent-data / per-frame-seed configs")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     man = a.out / "manifest.json"
@@ -63,7 +64,7 @@ def main():
     for s in map(int, a.spp.split(",")):
         cfgs.append((f"spp{s}-dn", s, []))
         cfgs.append((f"spp{s}-nodn", s, ["--no-denoise"]))
-    for s in (16, 64):
+    for s in () if a.no_extras else (16, 64):
         cfgs.append((f"spp{s}-dn-nopersist", s, ["--no-persistent-data"]))
         cfgs.append((f"spp{s}-dn-perframe", s, ["--seed-mode", "per-frame"]))
         cfgs.append((f"spp{s}-nodn-perframe", s, ["--no-denoise", "--seed-mode", "per-frame"]))

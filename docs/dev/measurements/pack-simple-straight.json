@@ -1,0 +1,109 @@
+{
+ "images": 12,
+ "size": [
+  1920,
+  1080
+ ],
+ "alpha": "straight",
+ "total": 5928,
+ "lowKB": 4.156083333333333,
+ "lowTotalMB": 0.44885699999999995,
+ "configs": [
+  {
+   "quality": 40,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 8.58375,
+   "encodeSec": 0.15163860733332513,
+   "totalGB": 0.05088447,
+   "psnrRGBA": 49.42641258239746,
+   "psnrOverWhite": 51.85086917877197,
+   "psnrOverBlack": 51.4929469426473,
+   "psnrEdgeWhite": 35.59425640106201
+  },
+  {
+   "quality": 60,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 12.234666666666666,
+   "encodeSec": 0.14922291883332642,
+   "totalGB": 0.072527104,
+   "psnrRGBA": 51.834811528523765,
+   "psnrOverWhite": 53.951138178507485,
+   "psnrOverBlack": 53.838649113972984,
+   "psnrEdgeWhite": 39.066806157430015
+  },
+  {
+   "quality": 80,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 16.91825,
+   "encodeSec": 0.14397804458322602,
+   "totalGB": 0.100291386,
+   "psnrRGBA": 52.696592013041176,
+   "psnrOverWhite": 54.99243132273356,
+   "psnrOverBlack": 54.961243311564125,
+   "psnrEdgeWhite": 40.94665781656901
+  },
+  {
+   "quality": 40,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 8.8,
+   "encodeSec": 0.213637707166716,
+   "totalGB": 0.0521664,
+   "psnrRGBA": 51.24889659881592,
+   "psnrOverWhite": 53.23017374674479,
+   "psnrOverBlack": 52.82943534851074,
+   "psnrEdgeWhite": 36.4533421198527
+  },
+  {
+   "quality": 60,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 12.644416666666666,
+   "encodeSec": 0.2008241244166508,
+   "totalGB": 0.074956102,
+   "psnrRGBA": 55.569045066833496,
+   "psnrOverWhite": 56.36969025929769,
+   "psnrOverBlack": 56.25639661153158,
+   "psnrEdgeWhite": 41.025871912638344
+  },
+  {
+   "quality": 80,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 16.981916666666667,
+   "encodeSec": 0.21138346150003903,
+   "totalGB": 0.100668802,
+   "psnrRGBA": 57.459723472595215,
+   "psnrOverWhite": 57.90925153096517,
+   "psnrOverBlack": 57.90260283152262,
+   "psnrEdgeWhite": 43.74122301737467
+  },
+  {
+   "quality": 60,
+   "speed": 4,
+   "subsampling": "4:2:0",
+   "meanKB": 11.158083333333334,
+   "encodeSec": 0.7055442836666922,
+   "totalGB": 0.066145118,
+   "psnrRGBA": 51.90536689758301,
+   "psnrOverWhite": 54.00341637929281,
+   "psnrOverBlack": 53.91171360015869,
+   "psnrEdgeWhite": 39.25903161366781
+  },
+  {
+   "quality": 60,
+   "speed": 8,
+   "subsampling": "4:2:0",
+   "meanKB": 13.401166666666667,
+   "encodeSec": 0.06318933458328502,
+   "totalGB": 0.079442116,
+   "psnrRGBA": 51.27900791168213,
+   "psnrOverWhite": 53.24673398335775,
+   "psnrOverBlack": 53.14164670308431,
+   "psnrEdgeWhite": 38.19483280181885
+  }
+ ]
+}

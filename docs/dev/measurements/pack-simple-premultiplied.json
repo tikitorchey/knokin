@@ -1,0 +1,157 @@
+{
+ "images": 12,
+ "size": [
+  1920,
+  1080
+ ],
+ "alpha": "premultiplied",
+ "total": 5928,
+ "lowKB": 3.1050833333333334,
+ "lowTotalMB": 0.335349,
+ "configs": [
+  {
+   "quality": 40,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 7.259083333333333,
+   "encodeSec": 0.17843036475001858,
+   "totalGB": 0.043031846,
+   "psnrRGBA": 30.67927312850952,
+   "psnrOverWhite": 29.481913566589355,
+   "psnrOverBlack": 29.434711297353108,
+   "psnrEdgeWhite": 10.98049553235372
+  },
+  {
+   "quality": 50,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 8.956583333333334,
+   "encodeSec": 0.17378339966664194,
+   "totalGB": 0.053094626,
+   "psnrRGBA": 31.919238249460857,
+   "psnrOverWhite": 30.71370013554891,
+   "psnrOverBlack": 30.673205852508545,
+   "psnrEdgeWhite": 11.644510507583618
+  },
+  {
+   "quality": 60,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 10.809583333333334,
+   "encodeSec": 0.17214544391670947,
+   "totalGB": 0.06407921,
+   "psnrRGBA": 33.590675354003906,
+   "psnrOverWhite": 32.38107490539551,
+   "psnrOverBlack": 32.3436172803243,
+   "psnrEdgeWhite": 12.277162869771322
+  },
+  {
+   "quality": 70,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 12.62225,
+   "encodeSec": 0.17771491116669344,
+   "totalGB": 0.074824698,
+   "psnrRGBA": 34.00065898895264,
+   "psnrOverWhite": 32.78732363382975,
+   "psnrOverBlack": 32.75285371144613,
+   "psnrEdgeWhite": 12.663284858067831
+  },
+  {
+   "quality": 80,
+   "speed": 6,
+   "subsampling": "4:2:0",
+   "meanKB": 15.37675,
+   "encodeSec": 0.17284354174993646,
+   "totalGB": 0.091153374,
+   "psnrRGBA": 35.41813119252523,
+   "psnrOverWhite": 34.20258935292562,
+   "psnrOverBlack": 34.169877688090004,
+   "psnrEdgeWhite": 13.903255780537924
+  },
+  {
+   "quality": 40,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 7.416083333333333,
+   "encodeSec": 0.21904304891662227,
+   "totalGB": 0.043962542,
+   "psnrRGBA": 31.86702251434326,
+   "psnrOverWhite": 30.66930357615153,
+   "psnrOverBlack": 30.62395699818929,
+   "psnrEdgeWhite": 11.714810689290365
+  },
+  {
+   "quality": 50,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 9.227583333333333,
+   "encodeSec": 0.20026841575005014,
+   "totalGB": 0.054701114,
+   "psnrRGBA": 33.48464298248291,
+   "psnrOverWhite": 32.278818448384605,
+   "psnrOverBlack": 32.24005937576294,
+   "psnrEdgeWhite": 12.508265813191732
+  },
+  {
+   "quality": 60,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 11.14725,
+   "encodeSec": 0.21098649958340351,
+   "totalGB": 0.066080898,
+   "psnrRGBA": 34.562783559163414,
+   "psnrOverWhite": 33.35355695088705,
+   "psnrOverBlack": 33.31630992889404,
+   "psnrEdgeWhite": 13.217403968175253
+  },
+  {
+   "quality": 70,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 12.871583333333334,
+   "encodeSec": 0.21180943141663042,
+   "totalGB": 0.076302746,
+   "psnrRGBA": 35.010786056518555,
+   "psnrOverWhite": 33.79923152923584,
+   "psnrOverBlack": 33.763400077819824,
+   "psnrEdgeWhite": 13.752966165542603
+  },
+  {
+   "quality": 80,
+   "speed": 6,
+   "subsampling": "4:4:4",
+   "meanKB": 15.380666666666666,
+   "encodeSec": 0.20814828783341,
+   "totalGB": 0.091176592,
+   "psnrRGBA": 36.607168197631836,
+   "psnrOverWhite": 35.39524777730306,
+   "psnrOverBlack": 35.35926882425944,
+   "psnrEdgeWhite": 15.22977606455485
+  },
+  {
+   "quality": 60,
+   "speed": 4,
+   "subsampling": "4:2:0",
+   "meanKB": 9.806166666666666,
+   "encodeSec": 0.692632141333282,
+   "totalGB": 0.058130956,
+   "psnrRGBA": 34.21745649973551,
+   "psnrOverWhite": 32.99888356526693,
+   "psnrOverBlack": 32.970139821370445,
+   "psnrEdgeWhite": 12.706639766693115
+  },
+  {
+   "quality": 60,
+   "speed": 8,
+   "subsampling": "4:2:0",
+   "meanKB": 12.020416666666666,
+   "encodeSec": 0.0916614349999539,
+   "totalGB": 0.07125703,
+   "psnrRGBA": 31.409488836924236,
+   "psnrOverWhite": 30.206190903981526,
+   "psnrOverBlack": 30.16236750284831,
+   "psnrEdgeWhite": 11.672070662180582
+  }
+ ]
+}

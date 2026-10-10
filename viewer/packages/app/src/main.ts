@@ -10,6 +10,10 @@ import { makeUrlOf } from './urls';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
+function urlNum(params: URLSearchParams, k: string): number | null {
+  return params.has(k) && Number.isFinite(Number(params.get(k))) ? Number(params.get(k)) : null;
+}
+
 async function boot(): Promise<void> {
   const params = new URLSearchParams(location.search);
   const manifestUrl = new URL(params.get('m') ?? './manifest.json', location.href).href;
@@ -21,8 +25,8 @@ async function boot(): Promise<void> {
 
   const metrics = new Metrics();
   // URL overrides so a run is fully described by its URL (useful on a phone: no sliders to set).
-  //   decode=createImageBitmap|imageDecoder  pm=premultiply|none|default  cache=<maxItems>  conc=<n>  budget=<n>
-  const num = (k: string): number | null => (params.has(k) && Number.isFinite(Number(params.get(k))) ? Number(params.get(k)) : null);
+  //   speed=<px/s> (scripted drag speed)  decode=createImageBitmap|imageDecoder  pm=premultiply|none|default  cache=<maxItems>  conc=<n>  budget=<n>
+  const num = (k: string): number | null => urlNum(params, k);
   const loaderOpt: LoaderOpt = { ...DEFAULT_LOADER_OPT };
   const decodeP = params.get('decode');
   if (decodeP === 'createImageBitmap' || decodeP === 'imageDecoder') loaderOpt.strategy = decodeP;
@@ -163,18 +167,27 @@ function setupDebug(
     loader: loaderOpt,
     heapMB: heapMB(),
     peakHeapMB: peakHeap,
+    // JS heap does not include decoded bitmaps (GPU/native memory); estimate them as width*height*4 per decoded frame.
+    decodedMB: (cache.readyCount * manifest.image.width * manifest.image.height * 4) / 1048576,
+    peakDecodedMB: peakDecoded,
     scripted,
     ...metrics.snapshot(),
   });
   let peakHeap = 0;
+  let peakDecoded = 0;
   $('bench').onclick = async () => {
     const btn = $('bench') as HTMLButtonElement;
     btn.disabled = true;
     metrics.reset();
     peakHeap = 0;
+    peakDecoded = 0;
     c.reset(manifest.start.node);
-    const r = await runBench(c, DEFAULT_BENCH_OPT, () => { peakHeap = Math.max(peakHeap, heapMB() ?? 0); });
-    scripted = { path: DEFAULT_BENCH_OPT.path, speedPxPerSec: DEFAULT_BENCH_OPT.speedPxPerSec, wallMs: r.wallMs };
+    const benchOpt = { ...DEFAULT_BENCH_OPT, speedPxPerSec: urlNum(new URLSearchParams(location.search), 'speed') ?? DEFAULT_BENCH_OPT.speedPxPerSec };
+    const r = await runBench(c, benchOpt, () => {
+      peakHeap = Math.max(peakHeap, heapMB() ?? 0);
+      peakDecoded = Math.max(peakDecoded, (cache.readyCount * manifest.image.width * manifest.image.height * 4) / 1048576);
+    });
+    scripted = { path: benchOpt.path, speedPxPerSec: benchOpt.speedPxPerSec, wallMs: r.wallMs };
     (window as unknown as { __knokinBench: unknown }).__knokinBench = report();
     showJson(JSON.stringify(report(), null, 2));
     btn.disabled = false;

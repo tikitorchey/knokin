@@ -1,0 +1,21 @@
+{
+  "blender": "5.2.2 LTS",
+  "engine": "CYCLES",
+  "settings": {
+    "samples": 32,
+    "seed": 0,
+    "seed_mode": "fixed",
+    "denoise": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "device": "CPU",
+    "persistent_data": true,
+    "gpu_devices": []
+  },
+  "samples": 32,
+  "denoising": {
+    "enabled": true,
+    "denoiser": "OPENIMAGEDENOISE"
+  },
+  "seed": 0,
+  "blendSha256": "50c13a6459b08c82fc3976885763a7612caa5eb612be77526cff319412637fed"
+}
