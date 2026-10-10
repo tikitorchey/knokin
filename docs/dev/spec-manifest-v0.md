@@ -71,7 +71,7 @@ schema, meta?, coords, camera, image, frames, nodes, edges, start, render?
 | --- | --- |
 | `coords` | 規約の宣言。リーダーが実装する規約と完全一致しなければ拒否 |
 | `camera` | `projection`, `focalMm`, `sensorWidthMm`, `distance`, `pivot` |
-| `image` | `width`, `height`, `alpha`(`premultiplied`), `colorSpace`(`sRGB`) |
+| `image` | `width`, `height`, `alpha`(`premultiplied`\|`straight`), `colorSpace`(`sRGB`), `low?`(`{width,height}`: 低解像度ノード画像) |
 | `frames` | `codec`(`image-seq`), `format`, `base`, `node`, `nodeLow?`, `edge` |
 | `start` | `{ "node": id }`。生成時は (0,0) に最も近いノード |
 | `render` | 撮影条件の記録(`graphPreset`、Blender版・サンプル数・シード・ハッシュ等)。ビューアは参照しない |
@@ -148,7 +148,12 @@ acc     = ノードの上で溜めたドラッグ量(px)。辺の上では常に
 - **辺の上**: 進行方向(`heading` と T の内積の符号。`heading` が不明なら t 増加方向)に最大 `ceil(budget/2)` 枚。端点に届けばそのノードまで。続いて、そのノードの他の接続辺の先頭 `fanFrames` 枚を、ランク順に巡回して取る(辺は `heading` に近い順、同角度は辺 ID 順)。最後に後方 `behindFrames` 枚。
 - **ノードの上**: 全接続辺の先頭から、同じ巡回順で `budget` まで。
 
+## 8b. パッカー
+
+入力は §7 の作業ディレクトリ、出力は `<out>/manifest.json` + `<out>/<frames.base>…` + `pack.jsonl`。
+色変換は DD22、冪等性は DD24。最終 manifest の `render` は `graphPreset` + `capture`(render_meta.json の内容)+ `pack`(AVIF設定、lowWidth、partial)。
+
 ## 9. 未確定(後続セッションで決める)
 
-- `render` の具体フィールド、マスター(EXR)の配置、JSONLログの形式。
+- `render.capture` の具体フィールド(現状は render_meta.json をそのまま取り込む)。
 - 影キャッチャーレイヤー(D03)、重点エリア用の `span`/`stride`。

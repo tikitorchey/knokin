@@ -24,3 +24,10 @@
 | DD18 | cosφ の適用 | 辺の上は現在の t の φ、ノードから出る方向はノードの φ | 状態を持たずに済み、ノードで連続する |
 | DD19 | prefetch の優先順 | 前方 → 端点ノード → 接続辺の先頭(ランク巡回)→ 後方 | 曲がった直後の待ちを減らすため |
 | DD20 | TS の構成 | `viewer/` を npm workspaces にし、純関数は `packages/core`(DOM非依存、Vitest) | 描画・入力層を後で別パッケージにできる |
+| DD21 | パッカーの依存 | NumPy + Pillow(ネイティブAVIF, ≥11.3)+ OpenEXR(pip)。`OpenImageIO`/`avifenc` は使わない | pip だけで入り、クラウドでも検証できる。ノートの候補は後で差し替え可(読込・書込は関数注入) |
+| DD22 | 色変換 | EXR(シーン線形・premultiplied)→ 非premultipliedへ戻す → sRGB OETF → `image.alpha` に従い再乗算 → 8bit。Blender のビュー変換は Standard 前提 | OETF は非線形なので straight 色に掛ける必要がある |
+| DD23 | 低解像度の縮小 | premultiplied 空間で LANCZOS。サイズは `image.low = {width,height}` に記録 | 透明部の色が縁に滲むのを避ける |
+| DD24 | 冪等性 | `pack.jsonl` に出力ごと {マスターSHA-256, 設定ハッシュ, サイズ}。一致し、ファイルがあれば飛ばす | マスターの撮り直し・設定変更だけを再生成する |
+| DD25 | 出力の検証 | 最後に `resolve` から導いた全参照の存在を確認し、足りなければ失敗。出力 manifest は `render.capture`/`render.pack` を取り込む | ビューアが404を踏まないことを撮影側で保証する |
+| DD26 | `--partial` | 撮影済みだけをパックし `render.pack.partial=true`。通常は未撮影・破損があると拒否 | テスト撮影(約100枚)のサイズ計測に使う |
+| DD27 | AVIF 既定値 | quality 60 / speed 6 / 4:2:0 | 仮置き。4:4:4 とのサイズ・縁の品質比較は実測項目 |

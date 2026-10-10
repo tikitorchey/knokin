@@ -22,7 +22,7 @@ testdata/move_cases/ move/frameAt/prefetch のテストケースJSON(Python/TS �
 viewer/packages/core/  純関数(move/frameAt/prefetch/resolve/manifest)。DOM非依存
 viewer/            (予定) 描画・入力・通信・計測のアプリ(Vite)
 python/addon/      Blender層(`knokin_blender/`)と、ヘッドレス撮影の入口 `run_capture.py`
-python/packer/     (予定)
+python/knokin_packer/  パッカー(EXR→AVIF、低解像度ノード画像、最終manifest)
 ```
 
 ## 開発の進め方
@@ -32,7 +32,7 @@ python/packer/     (予定)
 | 1 | コア: 座標、グラフ、格子プリセット、検証、manifest、resolve、撮影タスク列挙、正解manifest | 完了 |
 | 2 | ジョブ状態管理(JSONL、中断再開、tmp→rename)、Blender層(カメラ配置・EXR保存・ヘッドレス) | 完了(bpy 5.2.2 で実機確認) |
 | 3 | ビューア純関数 `move`/`frameAt`/`prefetch` + テストケースJSON | 完了 |
-| 4 | パッカー | 未 |
+| 4 | パッカー(机上検証: 合成EXRで往復・冪等性・欠落検出) | 完了 |
 | 5 | ビューア描画・入力・計測 | 未 |
 
 ## 開発コマンド
@@ -41,6 +41,15 @@ python/packer/     (予定)
 cd python && pip install pytest && python -m pytest
 PYTHONPATH=. python tools/regen_golden.py   # 正解manifestを意図的に更新する時のみ
 ```
+
+## パッカー
+
+```
+pip install -e "python[packer]"      # numpy, pillow>=11.3, OpenEXR
+python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [--subsampling 4:2:0|4:4:4] [--low-width 480] [--partial]
+```
+
+再実行は冪等(変わった画像だけ作り直す)。未撮影・破損があれば拒否する(`--partial` でテスト撮影分だけ)。
 
 ## ビューア純関数のテスト
 
