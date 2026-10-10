@@ -84,7 +84,25 @@ schema, meta?, coords, camera, image, frames, nodes, edges, start, render?
 - `testdata/manifests/grid30_cross.json`: プリセットから生成した正解。Python のテストが再生成して一致を確認する。TypeScript 側も同じファイルを読み、ノード数・エッジ数・総画像数・resolve 結果を検証する。
 - `testdata/move_cases/`(予定): 「この位置から、このドラッグで、この位置」を JSON で持つ。
 
-## 7. 未確定(後続セッションで決める)
+## 7. 撮影作業ディレクトリ(capture work dir)
+
+manifest の外にある撮影側の規約。パッカーはこれを入力にする。
+
+```
+manifest.json         撮影開始時の manifest(再開時は同一内容でなければ拒否)
+capture.jsonl         1行目 header(manifest の SHA-256)、以降 1画像1行
+render_meta.json      撮影条件(Blender版、サンプル数、デノイザー、シード、.blend の SHA-256)
+masters/n/{node}.exr
+masters/e/{edge}/{i:04d}.exr
+```
+
+- `capture.jsonl` の frame 行: `id, theta, phi, path, seconds, bytes, sha256, ts`。
+- 完了の判定: ログ行がある **かつ** ファイルが存在し、サイズが一致(`--verify` でハッシュも照合)。
+- 書き込みは `*.part.exr` に行い、fsync して rename、最後にログを追記。途中で落ちても最終名の不完全ファイルは残らず、rename 後・ログ前に落ちた画像は撮り直される。
+- ログ末尾の途中切れ行は無視する。作業ディレクトリの再開時に残った `*.part.*` は削除する。
+- `render_meta.json` の内容は、パッカーが最終 manifest の `render` に取り込む(撮影中は manifest を書き換えない)。
+
+## 8. 未確定(後続セッションで決める)
 
 - `move` の規則詳細(`MoveOpt`、`Heading`、不感帯の定義、cosφ の適用位置)。
 - `render` の具体フィールド、マスター(EXR)の配置、JSONLログの形式。

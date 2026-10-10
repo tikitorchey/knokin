@@ -13,3 +13,8 @@
 | DD07 | 低解像度ノード | `frames.nodeLow`(任意)で宣言 | D08 の配置が未定義だったため |
 | DD08 | schema と coords の検証 | `schema` 完全一致、`coords` 宣言も完全一致でなければ拒否 | 規約変更に気づけるように |
 | DD09 | Python | 3.11 以上、コアは標準ライブラリのみ | Blender 同梱Pythonへの導入不要 |
+| DD10 | 完了判定 | ログ行 + ファイル存在 + サイズ一致。ハッシュ照合は `--verify` で任意 | 数千枚の起動時に全再ハッシュすると遅いため |
+| DD11 | manifest と撮影条件 | 撮影中は manifest を書き換えず、条件は `render_meta.json` に保存。パッカーが `render` に取り込む | 再開時の manifest 同一性チェック(SHA-256)を保つため |
+| DD12 | シード方針の切替 | `--seed-mode fixed|per-frame` を用意。既定は fixed | D10 のテスト撮影で比較できるようにするため |
+| DD13 | Blender層の検証 | `pip install bpy`(5.2.2)で実機テスト。bpy がなければスキップ | Blender本体なしで CI/クラウドでも検証できる |
+| DD14 | `use_file_extension` | 無効にして `*.part.exr` を厳密なパスで書く | Blender による拡張子の付与・変更を避ける |

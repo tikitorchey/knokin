@@ -20,7 +20,8 @@ python/tools/      補助スクリプト(正解manifestの再生成など)
 testdata/manifests/  共通正解データ(Python/TypeScript 両側で検証)
 testdata/move_cases/ (予定) move/frameAt のテストケースJSON
 viewer/            (予定) TypeScript。純関数パッケージ + Vite アプリ
-python/packer/, python/addon/  (予定)
+python/addon/      Blender層(`knokin_blender/`)と、ヘッドレス撮影の入口 `run_capture.py`
+python/packer/     (予定)
 ```
 
 ## 開発の進め方
@@ -28,7 +29,7 @@ python/packer/, python/addon/  (予定)
 | セッション | 内容 | 状態 |
 | --- | --- | --- |
 | 1 | コア: 座標、グラフ、格子プリセット、検証、manifest、resolve、撮影タスク列挙、正解manifest | 完了 |
-| 2 | ジョブ状態管理(JSONL、中断再開、tmp→rename)、Blender層(カメラ配置・EXR保存・ヘッドレス) | 未 |
+| 2 | ジョブ状態管理(JSONL、中断再開、tmp→rename)、Blender層(カメラ配置・EXR保存・ヘッドレス) | 完了(bpy 5.2.2 で実機確認) |
 | 3 | ビューア純関数 `move`/`frameAt`/`prefetch` + テストケースJSON | 未 |
 | 4 | パッカー | 未 |
 | 5 | ビューア描画・入力・計測 | 未 |
@@ -39,3 +40,13 @@ python/packer/, python/addon/  (予定)
 cd python && pip install pytest && python -m pytest
 PYTHONPATH=. python tools/regen_golden.py   # 正解manifestを意図的に更新する時のみ
 ```
+
+## 撮影の実行(ヘッドレス)
+
+```
+blender -b scene.blend -P python/addon/run_capture.py -- \
+    --manifest manifest.json --workdir out/ [--test-shoot 100] [--samples 128] [--seed-mode fixed|per-frame]
+```
+
+同じコマンドの再実行が再開になる。Blender なしで Blender 層を試すには `pip install bpy` した環境で `pytest`
+(`tests/test_blender_smoke.py` は bpy がなければスキップされる)。

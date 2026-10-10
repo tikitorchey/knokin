@@ -43,3 +43,10 @@ def resolve(frames: dict, graph: Graph, ref: FrameRef, *, low: bool = False) -> 
 def frame_id(ref: FrameRef) -> str:
     """Stable job/log id, e.g. 'n000' or 'e0001/0007'."""
     return ref.node if isinstance(ref, NodeRef) else f"{ref.edge}/{ref.i:04d}"
+
+
+def master_relpath(ref: FrameRef) -> str:
+    """EXR master path under the capture work dir (capture-side layout, not in the manifest)."""
+    if isinstance(ref, NodeRef):
+        return f"masters/n/{ref.node}.exr"
+    return f"masters/e/{ref.edge}/{ref.i:04d}.exr"
