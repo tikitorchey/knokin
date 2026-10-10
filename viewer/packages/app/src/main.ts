@@ -2,6 +2,7 @@ import { parseManifest, refKey, type Manifest } from '@knokin/core';
 import { FrameCache } from './cache';
 import { Controller, DEFAULT_CONTROLLER_OPT, type ShowEvent } from './controller';
 import { DEFAULT_LOADER_OPT, makeLoader, supportsImageDecoder, type Frame, type LoaderOpt } from './loader';
+import { DEFAULT_BENCH_OPT, runBench } from './bench';
 import { Metrics, formatStats } from './metrics';
 import { CanvasView } from './render';
 import { buildPanel, type Control } from './ui';
@@ -133,8 +134,37 @@ function setupDebug(
   buildPanel($('controls'), controls);
   $('reset').onclick = () => c.reset(manifest.start.node);
   $('retry').onclick = () => { cache.clearFailures(); c.setOpt({}); };
+  let scripted: Record<string, unknown> | null = null;
+  const report = () => ({
+    tag: new URLSearchParams(location.search).get('tag') ?? '',
+    ua: navigator.userAgent,
+    dpr: devicePixelRatio,
+    screen: [innerWidth, innerHeight],
+    image: [manifest.image.width, manifest.image.height],
+    cores: navigator.hardwareConcurrency,
+    deviceMemoryGB: (navigator as unknown as { deviceMemory?: number }).deviceMemory ?? null,
+    opt: c.opt,
+    cache: { maxItems: cache.opt.maxItems, concurrency: cache.opt.concurrency },
+    loader: loaderOpt,
+    heapMB: heapMB(),
+    peakHeapMB: peakHeap,
+    scripted,
+    ...metrics.snapshot(),
+  });
+  let peakHeap = 0;
+  $('bench').onclick = async () => {
+    const btn = $('bench') as HTMLButtonElement;
+    btn.disabled = true;
+    metrics.reset();
+    peakHeap = 0;
+    c.reset(manifest.start.node);
+    const r = await runBench(c, DEFAULT_BENCH_OPT, () => { peakHeap = Math.max(peakHeap, heapMB() ?? 0); });
+    scripted = { path: DEFAULT_BENCH_OPT.path, speedPxPerSec: DEFAULT_BENCH_OPT.speedPxPerSec, wallMs: r.wallMs };
+    (window as unknown as { __knokinBench: unknown }).__knokinBench = report();
+    btn.disabled = false;
+  };
   $('export').onclick = () => {
-    const blob = new Blob([JSON.stringify({ ua: navigator.userAgent, dpr: devicePixelRatio, opt: c.opt, loader: loaderOpt, ...metrics.snapshot() }, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(report(), null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'knokin-metrics.json';
@@ -142,16 +172,23 @@ function setupDebug(
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
 
+  if (new URLSearchParams(location.search).has('bench')) setTimeout(() => $('bench').click(), 1500); // auto-run (automation)
+
   const bytes = manifest.image.width * manifest.image.height * 4;
   setInterval(() => {
-    const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
+    const mem = heapMB();
     hud.textContent = formatStats(metrics, {
       pos: JSON.stringify(c.state.pos),
       decoded: `${cache.readyCount} (~${((cache.readyCount * bytes) / 1048576).toFixed(0)}MB) inflight ${cache.inFlight}`,
       low: low ? low.readyCount : '-',
-      heap: mem ? `${(mem.usedJSHeapSize / 1048576).toFixed(0)}MB` : 'n/a',
+      heap: mem !== null ? `${mem.toFixed(0)}MB` : 'n/a',
     });
   }, 500);
+}
+
+function heapMB(): number | null {
+  const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
+  return mem ? mem.usedJSHeapSize / 1048576 : null;
 }
 
 boot().catch((e: unknown) => {
