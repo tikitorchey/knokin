@@ -31,3 +31,9 @@
 | DD25 | 出力の検証 | 最後に `resolve` から導いた全参照の存在を確認し、足りなければ失敗。出力 manifest は `render.capture`/`render.pack` を取り込む | ビューアが404を踏まないことを撮影側で保証する |
 | DD26 | `--partial` | 撮影済みだけをパックし `render.pack.partial=true`。通常は未撮影・破損があると拒否 | テスト撮影(約100枚)のサイズ計測に使う |
 | DD27 | AVIF 既定値 | quality 60 / speed 6 / 4:2:0 | 仮置き。4:4:4 とのサイズ・縁の品質比較は実測項目 |
+| DD28 | ビューアの構成 | `viewer/packages/app`(Vite・素のTS・Canvas 2D)。入力→move→frameAt→表示を `Controller`(DOM非依存・時計注入)に集約し、Vitestで検証 | 実機がなくても挙動を机上でテストできるように |
+| DD29 | キャッシュ | `FrameCache`: 優先順の want リストを毎回置き換え。待機中は破棄、通信中は abort、超過分は未使用・LRU の順で `close()` | メモリ上限(Androidで最大の不確実要素)を設定値で絞れるように。`maxItems`・`concurrency` はスライダーで変更可 |
+| DD30 | 未到着時の表示 | 直前のフレームを保持。ノード上では低解像度ノード画像を代役に出す(低解像度は起動時に全ノード先読み) | 白抜け・点滅を避ける。ミスは件数と入力→表示遅延で記録 |
+| DD31 | 描画 | 最新の1枚だけを `requestAnimationFrame` で描く。遅延 = ポインタイベント時刻 → 描画直後 | 入力から表示までの実遅延を測るため |
+| DD32 | デコード方式 | `createImageBitmap`(既定)と `ImageDecoder` を実行時に切替。`premultiplyAlpha` も切替(premultiply/none/default) | D-測定項目。どちらが速いか・縁が正しいかは実機で決める |
+| DD33 | デバッグUI | `?dbg=1` でHUD(遅延/取得/デコードの p50・p95、ヒット率、デコード済み枚数、ヒープ)と MoveOpt/prefetch/キャッシュのスライダー、メトリクスJSONの書き出し | 実機で値を詰める作業を1画面で |

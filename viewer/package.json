@@ -2,10 +2,14 @@
   "name": "knokin-viewer",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "npm test -w @knokin/core",
-    "typecheck": "npm run typecheck -w @knokin/core"
+    "test": "npm test -w @knokin/core -w @knokin/app",
+    "typecheck": "npm run typecheck -w @knokin/core -w @knokin/app",
+    "dev": "npm run dev -w @knokin/app",
+    "build": "npm run build -w @knokin/app"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

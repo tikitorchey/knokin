@@ -16,11 +16,11 @@ docs/ideas/        発案ノート(原文)
 docs/dev/          開発ドキュメント(正)
 python/knokin_core/  bpy非依存コア(標準ライブラリのみ。アドオンとパッカーが共有)
 python/tests/      pytest
-python/tools/      補助スクリプト(正解manifestの再生成など)
+python/tools/      補助スクリプト(正解manifestの再生成、合成撮影データの生成)
 testdata/manifests/  共通正解データ(Python/TypeScript 両側で検証)
 testdata/move_cases/ move/frameAt/prefetch のテストケースJSON(Python/TS 共通の正解)
 viewer/packages/core/  純関数(move/frameAt/prefetch/resolve/manifest)。DOM非依存
-viewer/            (予定) 描画・入力・通信・計測のアプリ(Vite)
+viewer/packages/app/  描画・入力・通信・計測のアプリ(Vite、Canvas 2D)
 python/addon/      Blender層(`knokin_blender/`)と、ヘッドレス撮影の入口 `run_capture.py`
 python/knokin_packer/  パッカー(EXR→AVIF、低解像度ノード画像、最終manifest)
 ```
@@ -33,7 +33,7 @@ python/knokin_packer/  パッカー(EXR→AVIF、低解像度ノード画像、�
 | 2 | ジョブ状態管理(JSONL、中断再開、tmp→rename)、Blender層(カメラ配置・EXR保存・ヘッドレス) | 完了(bpy 5.2.2 で実機確認) |
 | 3 | ビューア純関数 `move`/`frameAt`/`prefetch` + テストケースJSON | 完了 |
 | 4 | パッカー(机上検証: 合成EXRで往復・冪等性・欠落検出) | 完了 |
-| 5 | ビューア描画・入力・計測 | 未 |
+| 5 | ビューア描画・入力・計測(机上テスト + 合成データで Chromium 動作確認) | 完了 |
 
 ## 開発コマンド
 
@@ -50,6 +50,17 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 ```
 
 再実行は冪等(変わった画像だけ作り直す)。未撮影・破損があれば拒否する(`--partial` でテスト撮影分だけ)。
+
+## ビューアを動かす(Blender なし)
+
+```
+PYTHONPATH=python python python/tools/make_synthetic_capture.py --workdir /tmp/syn      # 色付き円盤の合成マスター
+PYTHONPATH=python python -m knokin_packer --workdir /tmp/syn --out viewer/packages/app/public   # 合成データをパック
+cd viewer && npm run dev                      # http://localhost:5173/?dbg=1  (m=<manifest URL> で別データ)
+```
+
+`?dbg=1` で HUD とスライダーが出る。Android 実機は同一ネットワークから `http://<PC>:5173/?dbg=1`(`vite --host` 済み)。
+本番ビルドは `npm run build`(`packages/app/dist`)。manifest と `frames/` は同じ階層に置く。
 
 ## ビューア純関数のテスト
 

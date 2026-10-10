@@ -16,7 +16,7 @@ export interface Manifest extends ManifestGraphInput {
   schema: string;
   coords: Record<string, string>;
   camera: Record<string, unknown>;
-  image: { width: number; height: number; alpha: string; colorSpace: string };
+  image: { width: number; height: number; alpha: string; colorSpace: string; low?: { width: number; height: number } };
   frames: FramesDecl;
   start: { node: string };
 }

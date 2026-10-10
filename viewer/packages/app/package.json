@@ -1,0 +1,14 @@
+{
+  "name": "@knokin/app",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": { "@knokin/core": "*" },
+  "devDependencies": { "vite": "^5.4.0" }
+}

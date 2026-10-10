@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Knokin Turn Table</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #101114; color: #d7d9de; font: 12px/1.4 ui-monospace, monospace; overflow: hidden; }
+    #stage { position: fixed; inset: 0; display: grid; place-items: center; }
+    canvas { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+    #hud { position: fixed; left: 8px; top: 8px; margin: 0; padding: 6px 8px; background: #000a; border-radius: 6px; pointer-events: none; white-space: pre; }
+    #panel { position: fixed; right: 8px; top: 8px; width: 260px; max-height: calc(100% - 16px); overflow: auto; padding: 8px; background: #000c; border-radius: 6px; }
+    #panel .row { display: grid; grid-template-columns: 90px 1fr 36px; gap: 6px; align-items: center; margin: 3px 0; }
+    #panel button { margin: 4px 4px 0 0; }
+    .hidden { display: none; }
+    #msg { position: fixed; inset: auto 8px 8px 8px; color: #ff8a80; }
+  </style>
+</head>
+<body>
+  <div id="stage"><canvas id="view"></canvas></div>
+  <pre id="hud"></pre>
+  <div id="panel" class="hidden"><div id="controls"></div>
+    <button id="reset">reset</button><button id="export">export metrics</button><button id="retry">retry failed</button>
+  </div>
+  <div id="msg"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
