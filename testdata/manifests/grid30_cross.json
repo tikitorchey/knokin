@@ -1,0 +1,3899 @@
+{
+  "schema": "knokin-turntable/0",
+  "meta": {
+    "title": "grid30-cross",
+    "created": "2026-10-10",
+    "generator": "knokin-core/0.0.1"
+  },
+  "coords": {
+    "unit": "deg",
+    "up": "+Z",
+    "thetaZero": "camera-at -Y",
+    "thetaDir": "ccw-from-above",
+    "phiDir": "up-positive"
+  },
+  "camera": {
+    "projection": "perspective",
+    "focalMm": 85,
+    "sensorWidthMm": 36,
+    "distance": 3.0,
+    "pivot": [
+      0,
+      0,
+      0.9
+    ]
+  },
+  "image": {
+    "width": 1920,
+    "height": 1080,
+    "alpha": "premultiplied",
+    "colorSpace": "sRGB"
+  },
+  "frames": {
+    "codec": "image-seq",
+    "format": "avif",
+    "base": "frames/",
+    "node": "n/{node}.avif",
+    "nodeLow": "n-low/{node}.avif",
+    "edge": "e/{edge}/{i:04d}.avif"
+  },
+  "nodes": [
+    {
+      "id": "n000",
+      "theta": 0,
+      "phi": -60
+    },
+    {
+      "id": "n001",
+      "theta": 30,
+      "phi": -60
+    },
+    {
+      "id": "n002",
+      "theta": 60,
+      "phi": -60
+    },
+    {
+      "id": "n003",
+      "theta": 90,
+      "phi": -60
+    },
+    {
+      "id": "n004",
+      "theta": 120,
+      "phi": -60
+    },
+    {
+      "id": "n005",
+      "theta": 150,
+      "phi": -60
+    },
+    {
+      "id": "n006",
+      "theta": 180,
+      "phi": -60
+    },
+    {
+      "id": "n007",
+      "theta": 210,
+      "phi": -60
+    },
+    {
+      "id": "n008",
+      "theta": 240,
+      "phi": -60
+    },
+    {
+      "id": "n009",
+      "theta": 270,
+      "phi": -60
+    },
+    {
+      "id": "n010",
+      "theta": 300,
+      "phi": -60
+    },
+    {
+      "id": "n011",
+      "theta": 330,
+      "phi": -60
+    },
+    {
+      "id": "n012",
+      "theta": 0,
+      "phi": -30
+    },
+    {
+      "id": "n013",
+      "theta": 30,
+      "phi": -30
+    },
+    {
+      "id": "n014",
+      "theta": 60,
+      "phi": -30
+    },
+    {
+      "id": "n015",
+      "theta": 90,
+      "phi": -30
+    },
+    {
+      "id": "n016",
+      "theta": 120,
+      "phi": -30
+    },
+    {
+      "id": "n017",
+      "theta": 150,
+      "phi": -30
+    },
+    {
+      "id": "n018",
+      "theta": 180,
+      "phi": -30
+    },
+    {
+      "id": "n019",
+      "theta": 210,
+      "phi": -30
+    },
+    {
+      "id": "n020",
+      "theta": 240,
+      "phi": -30
+    },
+    {
+      "id": "n021",
+      "theta": 270,
+      "phi": -30
+    },
+    {
+      "id": "n022",
+      "theta": 300,
+      "phi": -30
+    },
+    {
+      "id": "n023",
+      "theta": 330,
+      "phi": -30
+    },
+    {
+      "id": "n024",
+      "theta": 0,
+      "phi": 0
+    },
+    {
+      "id": "n025",
+      "theta": 30,
+      "phi": 0
+    },
+    {
+      "id": "n026",
+      "theta": 60,
+      "phi": 0
+    },
+    {
+      "id": "n027",
+      "theta": 90,
+      "phi": 0
+    },
+    {
+      "id": "n028",
+      "theta": 120,
+      "phi": 0
+    },
+    {
+      "id": "n029",
+      "theta": 150,
+      "phi": 0
+    },
+    {
+      "id": "n030",
+      "theta": 180,
+      "phi": 0
+    },
+    {
+      "id": "n031",
+      "theta": 210,
+      "phi": 0
+    },
+    {
+      "id": "n032",
+      "theta": 240,
+      "phi": 0
+    },
+    {
+      "id": "n033",
+      "theta": 270,
+      "phi": 0
+    },
+    {
+      "id": "n034",
+      "theta": 300,
+      "phi": 0
+    },
+    {
+      "id": "n035",
+      "theta": 330,
+      "phi": 0
+    },
+    {
+      "id": "n036",
+      "theta": 0,
+      "phi": 30
+    },
+    {
+      "id": "n037",
+      "theta": 30,
+      "phi": 30
+    },
+    {
+      "id": "n038",
+      "theta": 60,
+      "phi": 30
+    },
+    {
+      "id": "n039",
+      "theta": 90,
+      "phi": 30
+    },
+    {
+      "id": "n040",
+      "theta": 120,
+      "phi": 30
+    },
+    {
+      "id": "n041",
+      "theta": 150,
+      "phi": 30
+    },
+    {
+      "id": "n042",
+      "theta": 180,
+      "phi": 30
+    },
+    {
+      "id": "n043",
+      "theta": 210,
+      "phi": 30
+    },
+    {
+      "id": "n044",
+      "theta": 240,
+      "phi": 30
+    },
+    {
+      "id": "n045",
+      "theta": 270,
+      "phi": 30
+    },
+    {
+      "id": "n046",
+      "theta": 300,
+      "phi": 30
+    },
+    {
+      "id": "n047",
+      "theta": 330,
+      "phi": 30
+    },
+    {
+      "id": "n048",
+      "theta": 0,
+      "phi": 60
+    },
+    {
+      "id": "n049",
+      "theta": 30,
+      "phi": 60
+    },
+    {
+      "id": "n050",
+      "theta": 60,
+      "phi": 60
+    },
+    {
+      "id": "n051",
+      "theta": 90,
+      "phi": 60
+    },
+    {
+      "id": "n052",
+      "theta": 120,
+      "phi": 60
+    },
+    {
+      "id": "n053",
+      "theta": 150,
+      "phi": 60
+    },
+    {
+      "id": "n054",
+      "theta": 180,
+      "phi": 60
+    },
+    {
+      "id": "n055",
+      "theta": 210,
+      "phi": 60
+    },
+    {
+      "id": "n056",
+      "theta": 240,
+      "phi": 60
+    },
+    {
+      "id": "n057",
+      "theta": 270,
+      "phi": 60
+    },
+    {
+      "id": "n058",
+      "theta": 300,
+      "phi": 60
+    },
+    {
+      "id": "n059",
+      "theta": 330,
+      "phi": 60
+    },
+    {
+      "id": "n060",
+      "theta": 15,
+      "phi": -45
+    },
+    {
+      "id": "n061",
+      "theta": 45,
+      "phi": -45
+    },
+    {
+      "id": "n062",
+      "theta": 75,
+      "phi": -45
+    },
+    {
+      "id": "n063",
+      "theta": 105,
+      "phi": -45
+    },
+    {
+      "id": "n064",
+      "theta": 135,
+      "phi": -45
+    },
+    {
+      "id": "n065",
+      "theta": 165,
+      "phi": -45
+    },
+    {
+      "id": "n066",
+      "theta": 195,
+      "phi": -45
+    },
+    {
+      "id": "n067",
+      "theta": 225,
+      "phi": -45
+    },
+    {
+      "id": "n068",
+      "theta": 255,
+      "phi": -45
+    },
+    {
+      "id": "n069",
+      "theta": 285,
+      "phi": -45
+    },
+    {
+      "id": "n070",
+      "theta": 315,
+      "phi": -45
+    },
+    {
+      "id": "n071",
+      "theta": 345,
+      "phi": -45
+    },
+    {
+      "id": "n072",
+      "theta": 15,
+      "phi": -15
+    },
+    {
+      "id": "n073",
+      "theta": 45,
+      "phi": -15
+    },
+    {
+      "id": "n074",
+      "theta": 75,
+      "phi": -15
+    },
+    {
+      "id": "n075",
+      "theta": 105,
+      "phi": -15
+    },
+    {
+      "id": "n076",
+      "theta": 135,
+      "phi": -15
+    },
+    {
+      "id": "n077",
+      "theta": 165,
+      "phi": -15
+    },
+    {
+      "id": "n078",
+      "theta": 195,
+      "phi": -15
+    },
+    {
+      "id": "n079",
+      "theta": 225,
+      "phi": -15
+    },
+    {
+      "id": "n080",
+      "theta": 255,
+      "phi": -15
+    },
+    {
+      "id": "n081",
+      "theta": 285,
+      "phi": -15
+    },
+    {
+      "id": "n082",
+      "theta": 315,
+      "phi": -15
+    },
+    {
+      "id": "n083",
+      "theta": 345,
+      "phi": -15
+    },
+    {
+      "id": "n084",
+      "theta": 15,
+      "phi": 15
+    },
+    {
+      "id": "n085",
+      "theta": 45,
+      "phi": 15
+    },
+    {
+      "id": "n086",
+      "theta": 75,
+      "phi": 15
+    },
+    {
+      "id": "n087",
+      "theta": 105,
+      "phi": 15
+    },
+    {
+      "id": "n088",
+      "theta": 135,
+      "phi": 15
+    },
+    {
+      "id": "n089",
+      "theta": 165,
+      "phi": 15
+    },
+    {
+      "id": "n090",
+      "theta": 195,
+      "phi": 15
+    },
+    {
+      "id": "n091",
+      "theta": 225,
+      "phi": 15
+    },
+    {
+      "id": "n092",
+      "theta": 255,
+      "phi": 15
+    },
+    {
+      "id": "n093",
+      "theta": 285,
+      "phi": 15
+    },
+    {
+      "id": "n094",
+      "theta": 315,
+      "phi": 15
+    },
+    {
+      "id": "n095",
+      "theta": 345,
+      "phi": 15
+    },
+    {
+      "id": "n096",
+      "theta": 15,
+      "phi": 45
+    },
+    {
+      "id": "n097",
+      "theta": 45,
+      "phi": 45
+    },
+    {
+      "id": "n098",
+      "theta": 75,
+      "phi": 45
+    },
+    {
+      "id": "n099",
+      "theta": 105,
+      "phi": 45
+    },
+    {
+      "id": "n100",
+      "theta": 135,
+      "phi": 45
+    },
+    {
+      "id": "n101",
+      "theta": 165,
+      "phi": 45
+    },
+    {
+      "id": "n102",
+      "theta": 195,
+      "phi": 45
+    },
+    {
+      "id": "n103",
+      "theta": 225,
+      "phi": 45
+    },
+    {
+      "id": "n104",
+      "theta": 255,
+      "phi": 45
+    },
+    {
+      "id": "n105",
+      "theta": 285,
+      "phi": 45
+    },
+    {
+      "id": "n106",
+      "theta": 315,
+      "phi": 45
+    },
+    {
+      "id": "n107",
+      "theta": 345,
+      "phi": 45
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0001",
+      "kind": "lat",
+      "from": "n000",
+      "to": "n001",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0002",
+      "kind": "lat",
+      "from": "n001",
+      "to": "n002",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0003",
+      "kind": "lat",
+      "from": "n002",
+      "to": "n003",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0004",
+      "kind": "lat",
+      "from": "n003",
+      "to": "n004",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0005",
+      "kind": "lat",
+      "from": "n004",
+      "to": "n005",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0006",
+      "kind": "lat",
+      "from": "n005",
+      "to": "n006",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0007",
+      "kind": "lat",
+      "from": "n006",
+      "to": "n007",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0008",
+      "kind": "lat",
+      "from": "n007",
+      "to": "n008",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0009",
+      "kind": "lat",
+      "from": "n008",
+      "to": "n009",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0010",
+      "kind": "lat",
+      "from": "n009",
+      "to": "n010",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0011",
+      "kind": "lat",
+      "from": "n010",
+      "to": "n011",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0012",
+      "kind": "lat",
+      "from": "n011",
+      "to": "n000",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0013",
+      "kind": "lat",
+      "from": "n012",
+      "to": "n013",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0014",
+      "kind": "lat",
+      "from": "n013",
+      "to": "n014",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0015",
+      "kind": "lat",
+      "from": "n014",
+      "to": "n015",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0016",
+      "kind": "lat",
+      "from": "n015",
+      "to": "n016",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0017",
+      "kind": "lat",
+      "from": "n016",
+      "to": "n017",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0018",
+      "kind": "lat",
+      "from": "n017",
+      "to": "n018",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0019",
+      "kind": "lat",
+      "from": "n018",
+      "to": "n019",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0020",
+      "kind": "lat",
+      "from": "n019",
+      "to": "n020",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0021",
+      "kind": "lat",
+      "from": "n020",
+      "to": "n021",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0022",
+      "kind": "lat",
+      "from": "n021",
+      "to": "n022",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0023",
+      "kind": "lat",
+      "from": "n022",
+      "to": "n023",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0024",
+      "kind": "lat",
+      "from": "n023",
+      "to": "n012",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0025",
+      "kind": "lat",
+      "from": "n024",
+      "to": "n025",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0026",
+      "kind": "lat",
+      "from": "n025",
+      "to": "n026",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0027",
+      "kind": "lat",
+      "from": "n026",
+      "to": "n027",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0028",
+      "kind": "lat",
+      "from": "n027",
+      "to": "n028",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0029",
+      "kind": "lat",
+      "from": "n028",
+      "to": "n029",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0030",
+      "kind": "lat",
+      "from": "n029",
+      "to": "n030",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0031",
+      "kind": "lat",
+      "from": "n030",
+      "to": "n031",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0032",
+      "kind": "lat",
+      "from": "n031",
+      "to": "n032",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0033",
+      "kind": "lat",
+      "from": "n032",
+      "to": "n033",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0034",
+      "kind": "lat",
+      "from": "n033",
+      "to": "n034",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0035",
+      "kind": "lat",
+      "from": "n034",
+      "to": "n035",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0036",
+      "kind": "lat",
+      "from": "n035",
+      "to": "n024",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0037",
+      "kind": "lat",
+      "from": "n036",
+      "to": "n037",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0038",
+      "kind": "lat",
+      "from": "n037",
+      "to": "n038",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0039",
+      "kind": "lat",
+      "from": "n038",
+      "to": "n039",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0040",
+      "kind": "lat",
+      "from": "n039",
+      "to": "n040",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0041",
+      "kind": "lat",
+      "from": "n040",
+      "to": "n041",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0042",
+      "kind": "lat",
+      "from": "n041",
+      "to": "n042",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0043",
+      "kind": "lat",
+      "from": "n042",
+      "to": "n043",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0044",
+      "kind": "lat",
+      "from": "n043",
+      "to": "n044",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0045",
+      "kind": "lat",
+      "from": "n044",
+      "to": "n045",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0046",
+      "kind": "lat",
+      "from": "n045",
+      "to": "n046",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0047",
+      "kind": "lat",
+      "from": "n046",
+      "to": "n047",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0048",
+      "kind": "lat",
+      "from": "n047",
+      "to": "n036",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0049",
+      "kind": "lat",
+      "from": "n048",
+      "to": "n049",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0050",
+      "kind": "lat",
+      "from": "n049",
+      "to": "n050",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0051",
+      "kind": "lat",
+      "from": "n050",
+      "to": "n051",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0052",
+      "kind": "lat",
+      "from": "n051",
+      "to": "n052",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0053",
+      "kind": "lat",
+      "from": "n052",
+      "to": "n053",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0054",
+      "kind": "lat",
+      "from": "n053",
+      "to": "n054",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0055",
+      "kind": "lat",
+      "from": "n054",
+      "to": "n055",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0056",
+      "kind": "lat",
+      "from": "n055",
+      "to": "n056",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0057",
+      "kind": "lat",
+      "from": "n056",
+      "to": "n057",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0058",
+      "kind": "lat",
+      "from": "n057",
+      "to": "n058",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0059",
+      "kind": "lat",
+      "from": "n058",
+      "to": "n059",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0060",
+      "kind": "lat",
+      "from": "n059",
+      "to": "n048",
+      "delta": [
+        30,
+        0
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0061",
+      "kind": "lon",
+      "from": "n000",
+      "to": "n012",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0062",
+      "kind": "lon",
+      "from": "n012",
+      "to": "n024",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0063",
+      "kind": "lon",
+      "from": "n024",
+      "to": "n036",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0064",
+      "kind": "lon",
+      "from": "n036",
+      "to": "n048",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0065",
+      "kind": "lon",
+      "from": "n001",
+      "to": "n013",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0066",
+      "kind": "lon",
+      "from": "n013",
+      "to": "n025",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0067",
+      "kind": "lon",
+      "from": "n025",
+      "to": "n037",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0068",
+      "kind": "lon",
+      "from": "n037",
+      "to": "n049",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0069",
+      "kind": "lon",
+      "from": "n002",
+      "to": "n014",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0070",
+      "kind": "lon",
+      "from": "n014",
+      "to": "n026",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0071",
+      "kind": "lon",
+      "from": "n026",
+      "to": "n038",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0072",
+      "kind": "lon",
+      "from": "n038",
+      "to": "n050",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0073",
+      "kind": "lon",
+      "from": "n003",
+      "to": "n015",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0074",
+      "kind": "lon",
+      "from": "n015",
+      "to": "n027",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0075",
+      "kind": "lon",
+      "from": "n027",
+      "to": "n039",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0076",
+      "kind": "lon",
+      "from": "n039",
+      "to": "n051",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0077",
+      "kind": "lon",
+      "from": "n004",
+      "to": "n016",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0078",
+      "kind": "lon",
+      "from": "n016",
+      "to": "n028",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0079",
+      "kind": "lon",
+      "from": "n028",
+      "to": "n040",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0080",
+      "kind": "lon",
+      "from": "n040",
+      "to": "n052",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0081",
+      "kind": "lon",
+      "from": "n005",
+      "to": "n017",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0082",
+      "kind": "lon",
+      "from": "n017",
+      "to": "n029",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0083",
+      "kind": "lon",
+      "from": "n029",
+      "to": "n041",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0084",
+      "kind": "lon",
+      "from": "n041",
+      "to": "n053",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0085",
+      "kind": "lon",
+      "from": "n006",
+      "to": "n018",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0086",
+      "kind": "lon",
+      "from": "n018",
+      "to": "n030",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0087",
+      "kind": "lon",
+      "from": "n030",
+      "to": "n042",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0088",
+      "kind": "lon",
+      "from": "n042",
+      "to": "n054",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0089",
+      "kind": "lon",
+      "from": "n007",
+      "to": "n019",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0090",
+      "kind": "lon",
+      "from": "n019",
+      "to": "n031",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0091",
+      "kind": "lon",
+      "from": "n031",
+      "to": "n043",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0092",
+      "kind": "lon",
+      "from": "n043",
+      "to": "n055",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0093",
+      "kind": "lon",
+      "from": "n008",
+      "to": "n020",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0094",
+      "kind": "lon",
+      "from": "n020",
+      "to": "n032",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0095",
+      "kind": "lon",
+      "from": "n032",
+      "to": "n044",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0096",
+      "kind": "lon",
+      "from": "n044",
+      "to": "n056",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0097",
+      "kind": "lon",
+      "from": "n009",
+      "to": "n021",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0098",
+      "kind": "lon",
+      "from": "n021",
+      "to": "n033",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0099",
+      "kind": "lon",
+      "from": "n033",
+      "to": "n045",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0100",
+      "kind": "lon",
+      "from": "n045",
+      "to": "n057",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0101",
+      "kind": "lon",
+      "from": "n010",
+      "to": "n022",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0102",
+      "kind": "lon",
+      "from": "n022",
+      "to": "n034",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0103",
+      "kind": "lon",
+      "from": "n034",
+      "to": "n046",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0104",
+      "kind": "lon",
+      "from": "n046",
+      "to": "n058",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0105",
+      "kind": "lon",
+      "from": "n011",
+      "to": "n023",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0106",
+      "kind": "lon",
+      "from": "n023",
+      "to": "n035",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0107",
+      "kind": "lon",
+      "from": "n035",
+      "to": "n047",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0108",
+      "kind": "lon",
+      "from": "n047",
+      "to": "n059",
+      "delta": [
+        0,
+        30
+      ],
+      "frames": 31
+    },
+    {
+      "id": "e0109",
+      "kind": "diag",
+      "from": "n000",
+      "to": "n060",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0110",
+      "kind": "diag",
+      "from": "n001",
+      "to": "n060",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0111",
+      "kind": "diag",
+      "from": "n012",
+      "to": "n060",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0112",
+      "kind": "diag",
+      "from": "n013",
+      "to": "n060",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0113",
+      "kind": "diag",
+      "from": "n001",
+      "to": "n061",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0114",
+      "kind": "diag",
+      "from": "n002",
+      "to": "n061",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0115",
+      "kind": "diag",
+      "from": "n013",
+      "to": "n061",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0116",
+      "kind": "diag",
+      "from": "n014",
+      "to": "n061",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0117",
+      "kind": "diag",
+      "from": "n002",
+      "to": "n062",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0118",
+      "kind": "diag",
+      "from": "n003",
+      "to": "n062",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0119",
+      "kind": "diag",
+      "from": "n014",
+      "to": "n062",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0120",
+      "kind": "diag",
+      "from": "n015",
+      "to": "n062",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0121",
+      "kind": "diag",
+      "from": "n003",
+      "to": "n063",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0122",
+      "kind": "diag",
+      "from": "n004",
+      "to": "n063",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0123",
+      "kind": "diag",
+      "from": "n015",
+      "to": "n063",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0124",
+      "kind": "diag",
+      "from": "n016",
+      "to": "n063",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0125",
+      "kind": "diag",
+      "from": "n004",
+      "to": "n064",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0126",
+      "kind": "diag",
+      "from": "n005",
+      "to": "n064",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0127",
+      "kind": "diag",
+      "from": "n016",
+      "to": "n064",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0128",
+      "kind": "diag",
+      "from": "n017",
+      "to": "n064",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0129",
+      "kind": "diag",
+      "from": "n005",
+      "to": "n065",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0130",
+      "kind": "diag",
+      "from": "n006",
+      "to": "n065",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0131",
+      "kind": "diag",
+      "from": "n017",
+      "to": "n065",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0132",
+      "kind": "diag",
+      "from": "n018",
+      "to": "n065",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0133",
+      "kind": "diag",
+      "from": "n006",
+      "to": "n066",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0134",
+      "kind": "diag",
+      "from": "n007",
+      "to": "n066",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0135",
+      "kind": "diag",
+      "from": "n018",
+      "to": "n066",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0136",
+      "kind": "diag",
+      "from": "n019",
+      "to": "n066",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0137",
+      "kind": "diag",
+      "from": "n007",
+      "to": "n067",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0138",
+      "kind": "diag",
+      "from": "n008",
+      "to": "n067",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0139",
+      "kind": "diag",
+      "from": "n019",
+      "to": "n067",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0140",
+      "kind": "diag",
+      "from": "n020",
+      "to": "n067",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0141",
+      "kind": "diag",
+      "from": "n008",
+      "to": "n068",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0142",
+      "kind": "diag",
+      "from": "n009",
+      "to": "n068",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0143",
+      "kind": "diag",
+      "from": "n020",
+      "to": "n068",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0144",
+      "kind": "diag",
+      "from": "n021",
+      "to": "n068",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0145",
+      "kind": "diag",
+      "from": "n009",
+      "to": "n069",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0146",
+      "kind": "diag",
+      "from": "n010",
+      "to": "n069",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0147",
+      "kind": "diag",
+      "from": "n021",
+      "to": "n069",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0148",
+      "kind": "diag",
+      "from": "n022",
+      "to": "n069",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0149",
+      "kind": "diag",
+      "from": "n010",
+      "to": "n070",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0150",
+      "kind": "diag",
+      "from": "n011",
+      "to": "n070",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0151",
+      "kind": "diag",
+      "from": "n022",
+      "to": "n070",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0152",
+      "kind": "diag",
+      "from": "n023",
+      "to": "n070",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0153",
+      "kind": "diag",
+      "from": "n011",
+      "to": "n071",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0154",
+      "kind": "diag",
+      "from": "n000",
+      "to": "n071",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0155",
+      "kind": "diag",
+      "from": "n023",
+      "to": "n071",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0156",
+      "kind": "diag",
+      "from": "n012",
+      "to": "n071",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0157",
+      "kind": "diag",
+      "from": "n012",
+      "to": "n072",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0158",
+      "kind": "diag",
+      "from": "n013",
+      "to": "n072",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0159",
+      "kind": "diag",
+      "from": "n024",
+      "to": "n072",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0160",
+      "kind": "diag",
+      "from": "n025",
+      "to": "n072",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0161",
+      "kind": "diag",
+      "from": "n013",
+      "to": "n073",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0162",
+      "kind": "diag",
+      "from": "n014",
+      "to": "n073",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0163",
+      "kind": "diag",
+      "from": "n025",
+      "to": "n073",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0164",
+      "kind": "diag",
+      "from": "n026",
+      "to": "n073",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0165",
+      "kind": "diag",
+      "from": "n014",
+      "to": "n074",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0166",
+      "kind": "diag",
+      "from": "n015",
+      "to": "n074",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0167",
+      "kind": "diag",
+      "from": "n026",
+      "to": "n074",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0168",
+      "kind": "diag",
+      "from": "n027",
+      "to": "n074",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0169",
+      "kind": "diag",
+      "from": "n015",
+      "to": "n075",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0170",
+      "kind": "diag",
+      "from": "n016",
+      "to": "n075",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0171",
+      "kind": "diag",
+      "from": "n027",
+      "to": "n075",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0172",
+      "kind": "diag",
+      "from": "n028",
+      "to": "n075",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0173",
+      "kind": "diag",
+      "from": "n016",
+      "to": "n076",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0174",
+      "kind": "diag",
+      "from": "n017",
+      "to": "n076",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0175",
+      "kind": "diag",
+      "from": "n028",
+      "to": "n076",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0176",
+      "kind": "diag",
+      "from": "n029",
+      "to": "n076",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0177",
+      "kind": "diag",
+      "from": "n017",
+      "to": "n077",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0178",
+      "kind": "diag",
+      "from": "n018",
+      "to": "n077",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0179",
+      "kind": "diag",
+      "from": "n029",
+      "to": "n077",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0180",
+      "kind": "diag",
+      "from": "n030",
+      "to": "n077",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0181",
+      "kind": "diag",
+      "from": "n018",
+      "to": "n078",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0182",
+      "kind": "diag",
+      "from": "n019",
+      "to": "n078",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0183",
+      "kind": "diag",
+      "from": "n030",
+      "to": "n078",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0184",
+      "kind": "diag",
+      "from": "n031",
+      "to": "n078",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0185",
+      "kind": "diag",
+      "from": "n019",
+      "to": "n079",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0186",
+      "kind": "diag",
+      "from": "n020",
+      "to": "n079",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0187",
+      "kind": "diag",
+      "from": "n031",
+      "to": "n079",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0188",
+      "kind": "diag",
+      "from": "n032",
+      "to": "n079",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0189",
+      "kind": "diag",
+      "from": "n020",
+      "to": "n080",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0190",
+      "kind": "diag",
+      "from": "n021",
+      "to": "n080",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0191",
+      "kind": "diag",
+      "from": "n032",
+      "to": "n080",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0192",
+      "kind": "diag",
+      "from": "n033",
+      "to": "n080",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0193",
+      "kind": "diag",
+      "from": "n021",
+      "to": "n081",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0194",
+      "kind": "diag",
+      "from": "n022",
+      "to": "n081",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0195",
+      "kind": "diag",
+      "from": "n033",
+      "to": "n081",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0196",
+      "kind": "diag",
+      "from": "n034",
+      "to": "n081",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0197",
+      "kind": "diag",
+      "from": "n022",
+      "to": "n082",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0198",
+      "kind": "diag",
+      "from": "n023",
+      "to": "n082",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0199",
+      "kind": "diag",
+      "from": "n034",
+      "to": "n082",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0200",
+      "kind": "diag",
+      "from": "n035",
+      "to": "n082",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0201",
+      "kind": "diag",
+      "from": "n023",
+      "to": "n083",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0202",
+      "kind": "diag",
+      "from": "n012",
+      "to": "n083",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0203",
+      "kind": "diag",
+      "from": "n035",
+      "to": "n083",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0204",
+      "kind": "diag",
+      "from": "n024",
+      "to": "n083",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0205",
+      "kind": "diag",
+      "from": "n024",
+      "to": "n084",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0206",
+      "kind": "diag",
+      "from": "n025",
+      "to": "n084",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0207",
+      "kind": "diag",
+      "from": "n036",
+      "to": "n084",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0208",
+      "kind": "diag",
+      "from": "n037",
+      "to": "n084",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0209",
+      "kind": "diag",
+      "from": "n025",
+      "to": "n085",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0210",
+      "kind": "diag",
+      "from": "n026",
+      "to": "n085",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0211",
+      "kind": "diag",
+      "from": "n037",
+      "to": "n085",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0212",
+      "kind": "diag",
+      "from": "n038",
+      "to": "n085",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0213",
+      "kind": "diag",
+      "from": "n026",
+      "to": "n086",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0214",
+      "kind": "diag",
+      "from": "n027",
+      "to": "n086",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0215",
+      "kind": "diag",
+      "from": "n038",
+      "to": "n086",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0216",
+      "kind": "diag",
+      "from": "n039",
+      "to": "n086",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0217",
+      "kind": "diag",
+      "from": "n027",
+      "to": "n087",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0218",
+      "kind": "diag",
+      "from": "n028",
+      "to": "n087",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0219",
+      "kind": "diag",
+      "from": "n039",
+      "to": "n087",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0220",
+      "kind": "diag",
+      "from": "n040",
+      "to": "n087",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0221",
+      "kind": "diag",
+      "from": "n028",
+      "to": "n088",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0222",
+      "kind": "diag",
+      "from": "n029",
+      "to": "n088",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0223",
+      "kind": "diag",
+      "from": "n040",
+      "to": "n088",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0224",
+      "kind": "diag",
+      "from": "n041",
+      "to": "n088",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0225",
+      "kind": "diag",
+      "from": "n029",
+      "to": "n089",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0226",
+      "kind": "diag",
+      "from": "n030",
+      "to": "n089",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0227",
+      "kind": "diag",
+      "from": "n041",
+      "to": "n089",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0228",
+      "kind": "diag",
+      "from": "n042",
+      "to": "n089",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0229",
+      "kind": "diag",
+      "from": "n030",
+      "to": "n090",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0230",
+      "kind": "diag",
+      "from": "n031",
+      "to": "n090",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0231",
+      "kind": "diag",
+      "from": "n042",
+      "to": "n090",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0232",
+      "kind": "diag",
+      "from": "n043",
+      "to": "n090",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0233",
+      "kind": "diag",
+      "from": "n031",
+      "to": "n091",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0234",
+      "kind": "diag",
+      "from": "n032",
+      "to": "n091",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0235",
+      "kind": "diag",
+      "from": "n043",
+      "to": "n091",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0236",
+      "kind": "diag",
+      "from": "n044",
+      "to": "n091",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0237",
+      "kind": "diag",
+      "from": "n032",
+      "to": "n092",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0238",
+      "kind": "diag",
+      "from": "n033",
+      "to": "n092",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0239",
+      "kind": "diag",
+      "from": "n044",
+      "to": "n092",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0240",
+      "kind": "diag",
+      "from": "n045",
+      "to": "n092",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0241",
+      "kind": "diag",
+      "from": "n033",
+      "to": "n093",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0242",
+      "kind": "diag",
+      "from": "n034",
+      "to": "n093",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0243",
+      "kind": "diag",
+      "from": "n045",
+      "to": "n093",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0244",
+      "kind": "diag",
+      "from": "n046",
+      "to": "n093",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0245",
+      "kind": "diag",
+      "from": "n034",
+      "to": "n094",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0246",
+      "kind": "diag",
+      "from": "n035",
+      "to": "n094",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0247",
+      "kind": "diag",
+      "from": "n046",
+      "to": "n094",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0248",
+      "kind": "diag",
+      "from": "n047",
+      "to": "n094",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0249",
+      "kind": "diag",
+      "from": "n035",
+      "to": "n095",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0250",
+      "kind": "diag",
+      "from": "n024",
+      "to": "n095",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0251",
+      "kind": "diag",
+      "from": "n047",
+      "to": "n095",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0252",
+      "kind": "diag",
+      "from": "n036",
+      "to": "n095",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0253",
+      "kind": "diag",
+      "from": "n036",
+      "to": "n096",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0254",
+      "kind": "diag",
+      "from": "n037",
+      "to": "n096",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0255",
+      "kind": "diag",
+      "from": "n048",
+      "to": "n096",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0256",
+      "kind": "diag",
+      "from": "n049",
+      "to": "n096",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0257",
+      "kind": "diag",
+      "from": "n037",
+      "to": "n097",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0258",
+      "kind": "diag",
+      "from": "n038",
+      "to": "n097",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0259",
+      "kind": "diag",
+      "from": "n049",
+      "to": "n097",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0260",
+      "kind": "diag",
+      "from": "n050",
+      "to": "n097",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0261",
+      "kind": "diag",
+      "from": "n038",
+      "to": "n098",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0262",
+      "kind": "diag",
+      "from": "n039",
+      "to": "n098",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0263",
+      "kind": "diag",
+      "from": "n050",
+      "to": "n098",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0264",
+      "kind": "diag",
+      "from": "n051",
+      "to": "n098",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0265",
+      "kind": "diag",
+      "from": "n039",
+      "to": "n099",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0266",
+      "kind": "diag",
+      "from": "n040",
+      "to": "n099",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0267",
+      "kind": "diag",
+      "from": "n051",
+      "to": "n099",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0268",
+      "kind": "diag",
+      "from": "n052",
+      "to": "n099",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0269",
+      "kind": "diag",
+      "from": "n040",
+      "to": "n100",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0270",
+      "kind": "diag",
+      "from": "n041",
+      "to": "n100",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0271",
+      "kind": "diag",
+      "from": "n052",
+      "to": "n100",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0272",
+      "kind": "diag",
+      "from": "n053",
+      "to": "n100",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0273",
+      "kind": "diag",
+      "from": "n041",
+      "to": "n101",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0274",
+      "kind": "diag",
+      "from": "n042",
+      "to": "n101",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0275",
+      "kind": "diag",
+      "from": "n053",
+      "to": "n101",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0276",
+      "kind": "diag",
+      "from": "n054",
+      "to": "n101",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0277",
+      "kind": "diag",
+      "from": "n042",
+      "to": "n102",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0278",
+      "kind": "diag",
+      "from": "n043",
+      "to": "n102",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0279",
+      "kind": "diag",
+      "from": "n054",
+      "to": "n102",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0280",
+      "kind": "diag",
+      "from": "n055",
+      "to": "n102",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0281",
+      "kind": "diag",
+      "from": "n043",
+      "to": "n103",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0282",
+      "kind": "diag",
+      "from": "n044",
+      "to": "n103",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0283",
+      "kind": "diag",
+      "from": "n055",
+      "to": "n103",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0284",
+      "kind": "diag",
+      "from": "n056",
+      "to": "n103",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0285",
+      "kind": "diag",
+      "from": "n044",
+      "to": "n104",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0286",
+      "kind": "diag",
+      "from": "n045",
+      "to": "n104",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0287",
+      "kind": "diag",
+      "from": "n056",
+      "to": "n104",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0288",
+      "kind": "diag",
+      "from": "n057",
+      "to": "n104",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0289",
+      "kind": "diag",
+      "from": "n045",
+      "to": "n105",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0290",
+      "kind": "diag",
+      "from": "n046",
+      "to": "n105",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0291",
+      "kind": "diag",
+      "from": "n057",
+      "to": "n105",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0292",
+      "kind": "diag",
+      "from": "n058",
+      "to": "n105",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0293",
+      "kind": "diag",
+      "from": "n046",
+      "to": "n106",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0294",
+      "kind": "diag",
+      "from": "n047",
+      "to": "n106",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0295",
+      "kind": "diag",
+      "from": "n058",
+      "to": "n106",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0296",
+      "kind": "diag",
+      "from": "n059",
+      "to": "n106",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0297",
+      "kind": "diag",
+      "from": "n047",
+      "to": "n107",
+      "delta": [
+        15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0298",
+      "kind": "diag",
+      "from": "n036",
+      "to": "n107",
+      "delta": [
+        -15,
+        15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0299",
+      "kind": "diag",
+      "from": "n059",
+      "to": "n107",
+      "delta": [
+        15,
+        -15
+      ],
+      "frames": 16
+    },
+    {
+      "id": "e0300",
+      "kind": "diag",
+      "from": "n048",
+      "to": "n107",
+      "delta": [
+        -15,
+        -15
+      ],
+      "frames": 16
+    }
+  ],
+  "start": {
+    "node": "n024"
+  },
+  "render": {
+    "graphPreset": {
+      "type": "uniform-grid",
+      "cellDeg": 30,
+      "phiRange": [
+        -60,
+        60
+      ],
+      "stepDeg": 1,
+      "diagonals": "cross"
+    }
+  }
+}
