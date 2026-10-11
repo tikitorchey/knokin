@@ -202,6 +202,7 @@ def main() -> None:
     ap.add_argument("--subs", default="4:2:0", help="video chroma, e.g. 4:2:0,4:4:4 (4:4:4 is slow with libaom)")
     ap.add_argument("--speed", type=int, default=8, help="video encoder speed (aom cpu-used / svt preset); higher = faster")
     ap.add_argument("--quick", action="store_true", help="one crf per codec, 4:2:0 only, AVIF q60 only")
+    ap.add_argument("--fresh", action="store_true", help="ignore an existing <out>.csv (default: resume, skipping finished rows)")
     a = ap.parse_args()
 
     if not shutil.which("ffmpeg"):
@@ -218,8 +219,18 @@ def main() -> None:
     a.out.parent.mkdir(parents=True, exist_ok=True)
     flds = ["method", "param", "gop", "frames", "bytes_per_frame", "psnr_alpha", "psnr_gray", "psnr_white", "decode_ms_per_frame", "random_access_frames"]
     csv_path = a.out.with_suffix(".csv")
-    with csv_path.open("w", newline="") as f:
-        csv.writer(f).writerow(flds)
+    done: set[tuple[str, str, int]] = set()
+    if csv_path.exists() and not a.fresh:  # resume: a killed run continues where it stopped
+        with csv_path.open(newline="") as f:
+            for d in csv.DictReader(f):
+                if int(d["frames"]) != n:  # different input; do not mix
+                    raise SystemExit(f"{csv_path} was made with {d['frames']} frames, now {n}; use --fresh")
+                rows.append(Row(d["method"], d["param"], int(d["gop"]), n, *(float(d[k]) for k in flds[4:]), ))
+                done.add((d["method"], d["param"], int(d["gop"])))
+        print(f"resume: {len(done)} rows already in {csv_path}")
+    else:
+        with csv_path.open("w", newline="") as f:
+            csv.writer(f).writerow(flds)
 
     def keep(r: Row) -> None:  # written per row, so a killed run still leaves its results
         rows.append(r)
@@ -229,13 +240,16 @@ def main() -> None:
 
     for q in ([60] if a.quick else [40, 60, 80]):
         for sub in (["4:2:0"] if a.quick else ["4:2:0", "4:4:4"]):
-            keep(run_avif(ref, q, sub, 6))
+            if ("avif-frame", f"q{q}/{sub}/s6", 1) not in done:
+                keep(run_avif(ref, q, sub, 6))
     with tempfile.TemporaryDirectory() as td:
         for codec in a.codecs.split(","):
             crfs = CRF_RANGE[codec][1:2] if a.quick else CRF_RANGE[codec]
             for gop in (int(g) or n for g in a.gops.split(",")):
                 for subs in (["4:2:0"] if a.quick else a.subs.split(",")):
                     for crf in crfs:
+                        if (f"{codec}+alpha", f"crf{crf}/{subs}", gop) in done:
+                            continue
                         try:
                             keep(run_video(ref, codec, crf, gop, subs, a.speed, Path(td)))
                         except RuntimeError as e:
