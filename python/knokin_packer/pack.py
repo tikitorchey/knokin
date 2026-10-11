@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import warnings
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Callable
@@ -25,7 +26,7 @@ from knokin_core.manifest import Manifest, loads
 from knokin_core.resolve import resolve
 
 from .avif import AvifSettings, downscale, save_avif
-from .color import PREMULTIPLIED, STRAIGHT, encode_rgba8
+from .color import PREMULTIPLIED, STRAIGHT, bleed_straight, encode_rgba8
 from .exrio import read_exr_rgba
 
 PACK_LOG = "pack.jsonl"
@@ -44,6 +45,7 @@ class PackSettings:
     avif: AvifSettings = AvifSettings()
     low_width: int = 480  # node low-resolution images; 0 disables them
     partial: bool = False  # pack only what has been captured (for measuring a test shoot)
+    bleed: int = 0  # straight alpha only: grow edge colour this many px into transparent pixels (docs/dev/measurements.md)
 
     def digest(self) -> str:
         blob = json.dumps(asdict(self), sort_keys=True).encode()
@@ -133,6 +135,12 @@ def pack(
     alpha = manifest.image.get("alpha", PREMULTIPLIED)
     if alpha not in (PREMULTIPLIED, STRAIGHT):
         raise PackError(f"image.alpha {alpha!r} is not supported")
+    if alpha == PREMULTIPLIED:
+        warnings.warn(
+            "image.alpha='premultiplied': AVIF quantisation breaks 'colour <= alpha' at the silhouette (measured ~13 dB "
+            "worse at the edge than 'straight'; DD34). Use image.alpha='straight' for new shoots.",
+            stacklevel=2,
+        )
     if manifest.image.get("colorSpace") != "sRGB":
         raise PackError(f"image.colorSpace {manifest.image.get('colorSpace')!r} is not supported (sRGB only)")
     if manifest.frames.get("format") != "avif":
@@ -171,6 +179,8 @@ def pack(
         img = cache[1]
         if o.low:
             img = downscale(img, settings.low_width, premult)
+        if not premult:
+            img = bleed_straight(img, settings.bleed)
         final.parent.mkdir(parents=True, exist_ok=True)
         part = js.part_path(final)
         part.unlink(missing_ok=True)
@@ -222,7 +232,7 @@ def write_final_manifest(
         render["capture"] = json.loads(meta_path.read_text(encoding="utf-8"))
     render["pack"] = {
         "version": PACK_VERSION, "avif": asdict(settings.avif), "lowWidth": settings.low_width,
-        "partial": bool(skip),
+        "bleed": settings.bleed, "partial": bool(skip),
     }
     manifest.render = render
     image = dict(manifest.image)

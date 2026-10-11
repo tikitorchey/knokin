@@ -84,3 +84,21 @@ def test_headless_capture_writes_16bit_rgba_exr_and_resumes(blender_scene, tmp_p
         assert any(px[3::4]) and min(px[3::4]) < 1e-6 < max(px[3::4])  # transparent background + object
     finally:
         bpy.data.images.remove(img)
+
+
+def test_gpu_request_without_gpu_fails_loudly(blender_scene):
+    """Asking for GPU must raise, never silently render on the CPU. (Skipped where a GPU backend exists.)"""
+    prefs = bpy.context.preferences.addons["cycles"].preferences
+    has_gpu = False
+    for backend in bs.GPU_BACKENDS:
+        try:
+            prefs.compute_device_type = backend
+        except TypeError:
+            continue
+        prefs.refresh_devices()
+        has_gpu |= any(d.type != "CPU" for d in prefs.get_devices_for_type(backend))
+    prefs.compute_device_type = "NONE"
+    if has_gpu:
+        pytest.skip("a GPU is available here")
+    with pytest.raises(bs.DeviceError):
+        bs.apply_manifest(blender_scene, manifest(), bs.RenderSettings(samples=1, device="GPU"))

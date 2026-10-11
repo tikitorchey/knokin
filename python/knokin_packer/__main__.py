@@ -16,10 +16,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--speed", type=int, default=6)
     ap.add_argument("--subsampling", default="4:2:0", choices=["4:2:0", "4:4:4"])
     ap.add_argument("--low-width", type=int, default=480, help="node low-res width; 0 disables")
+    ap.add_argument("--bleed", type=int, default=0, help="straight alpha: grow edge colour N px into transparent pixels")
     ap.add_argument("--partial", action="store_true", help="pack only captured frames (test shoot)")
     ap.add_argument("--verify-masters", action="store_true", help="re-hash every master")
     a = ap.parse_args(argv)
-    s = PackSettings(AvifSettings(a.quality, a.speed, a.subsampling), a.low_width, a.partial)
+    s = PackSettings(AvifSettings(a.quality, a.speed, a.subsampling), a.low_width, a.partial, a.bleed)
     try:
         r = pack(a.workdir, a.out, s, verify_masters=a.verify_masters)
     except PackError as e:

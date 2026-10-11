@@ -24,6 +24,7 @@ from knokin_core.validate import validate_graph  # noqa: E402
 
 def parse(argv):
     p = argparse.ArgumentParser()
+    p.add_argument("--blend", help="open this .blend first (only needed with the `bpy` module; Blender's -b already did)")
     p.add_argument("--manifest", required=True)
     p.add_argument("--workdir", required=True)
     p.add_argument("--test-shoot", type=int, metavar="N", help="capture only N evenly spread frames")
@@ -40,6 +41,8 @@ def parse(argv):
 
 def main():
     a = parse(sys.argv)
+    if a.blend:
+        bpy.ops.wm.open_mainfile(filepath=str(Path(a.blend).resolve()))
     text = Path(a.manifest).read_text(encoding="utf-8")
     m = mf.loads(text)
     errs = validate_graph(m.graph, m.start)
