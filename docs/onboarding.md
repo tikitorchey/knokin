@@ -95,3 +95,15 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 2. [spec.md](spec.md) — manifest、座標、グラフ、撮影ディレクトリ、移動ロジック
 3. [decisions.md](decisions.md) — D01〜D11(基本方針)と DD01〜DD33(開発上の決定)
 4. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
+
+## 7. 圧縮方式の探索(Day2、進行中)
+
+`python/tools/codec_bench.py` が、AVIF 連番(現行)と動画コーデック(AV1 aom/SVT、HEVC、VP9)+**カラー/アルファ分離**を、同じ8bit基準画像に対して比較する(容量、アルファ/合成PSNR、デコード時間、ランダムアクセスで必要なデコード枚数)。
+
+```
+PYTHONPATH=python python python/tools/codec_bench.py --frames <エッジ1本分のEXR/PNG連番ディレクトリ> --out report [--quick]
+```
+
+- 入力は**実レンダーのエッジ1本分**(ノード→途中フレーム→ノード、30°なら31枚)。`--synthetic` は動作確認用で、数値は参考にならない。
+- 結果の表は `report.md` / `report.csv`。実測値は決定ログ(DD)に記録してから方針を決める。
+- 未着手: WebCodecs `VideoDecoder` でのブラウザ側デコード、キーフレーム(ノード)設計、逆再生コスト。
