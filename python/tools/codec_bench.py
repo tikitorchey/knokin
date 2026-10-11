@@ -10,6 +10,9 @@ premultiplied) sorted by name. Every candidate is scored against the same 8-bit 
 
 Video layout (alpha split): colour = premultiplied sRGB RGB as yuv420p/yuv444p (BT.709, full range),
 alpha = a separate gray-as-yuv420p stream. Rate control is CRF; GOP 1 = all-intra, GOP N = whole edge.
+AVIF is run twice: with the premultiplied flag (what the packer writes today, DD22) and without it. Pillow's
+decode of the flagged file differs strongly from the reference on semi-transparent pixels (PSNR ~25 vs ~37
+dB at q60), so what a browser shows for the flagged file MUST be checked in Chrome before trusting either row.
 Reports bytes/frame, PSNR (alpha, composite over gray and white), decode ms/frame, and the mean number
 of frames decoded to show one arbitrary frame (random access: (gop+1)/2).
 """
@@ -118,24 +121,21 @@ def score(ref: np.ndarray, dec: np.ndarray) -> tuple[float, float, float]:
 
 # ---------------------------------------------------------------- runners
 
-def run_avif(ref: np.ndarray, q: int, sub: str, speed: int) -> Row:
+def run_avif(ref: np.ndarray, q: int, sub: str, speed: int, pm: bool) -> Row:
     n = len(ref)
     total, dec, t_dec = 0, [], 0.0
     for f in ref:
         buf = io.BytesIO()
-        Image.fromarray(f, "RGBA").save(buf, "AVIF", quality=q, speed=speed, subsampling=sub, alpha_premultiplied=True)
+        Image.fromarray(f, "RGBA").save(buf, "AVIF", quality=q, speed=speed, subsampling=sub, alpha_premultiplied=pm)
         total += buf.tell()
         buf.seek(0)
         t0 = time.perf_counter()
         im = Image.open(buf)
         im.load()
         t_dec += time.perf_counter() - t0
-        d = np.asarray(im.convert("RGBA"), dtype=np.uint8)
-        # alpha_premultiplied=True: libavif hands back straight colour on decode; premultiply again to compare
-        d = np.dstack([np.rint(d[..., :3] * (d[..., 3:] / 255.0)), d[..., 3:]]).astype(np.uint8)
-        dec.append(d)
+        dec.append(np.asarray(im.convert("RGBA"), dtype=np.uint8))  # scored as returned by Pillow/libavif
     pa, pg, pw = score(ref, np.stack(dec))
-    return Row("avif-frame", f"q{q}/{sub}/s{speed}", 1, n, total / n, pa, pg, pw, 1000 * t_dec / n, 1.0)
+    return Row("avif-frame" + ("[pm-flag]" if pm else "[no-flag]"), f"q{q}/{sub}/s{speed}", 1, n, total / n, pa, pg, pw, 1000 * t_dec / n, 1.0)
 
 
 def _ff(args: list[str], stdin: bytes | None = None) -> bytes:
@@ -189,7 +189,8 @@ def main() -> None:
     ap.add_argument("--size", default="480x270", help="synthetic size WxH")
     ap.add_argument("--codecs", default="av1-aom,av1-svt,hevc,vp9")
     ap.add_argument("--gops", default="1,8,0", help="0 = whole sequence")
-    ap.add_argument("--subs", default="4:2:0,4:4:4")
+    ap.add_argument("--subs", default="4:2:0", help="video chroma, e.g. 4:2:0,4:4:4 (4:4:4 is slow with libaom)")
+    ap.add_argument("--speed", type=int, default=8, help="video encoder speed (aom cpu-used / svt preset); higher = faster")
     ap.add_argument("--quick", action="store_true", help="one crf per codec, 4:2:0 only, AVIF q60 only")
     a = ap.parse_args()
 
@@ -204,9 +205,22 @@ def main() -> None:
     print(f"{n} frames {w}x{h}")
 
     rows: list[Row] = []
+    a.out.parent.mkdir(parents=True, exist_ok=True)
+    flds = ["method", "param", "gop", "frames", "bytes_per_frame", "psnr_alpha", "psnr_gray", "psnr_white", "decode_ms_per_frame", "random_access_frames"]
+    csv_path = a.out.with_suffix(".csv")
+    with csv_path.open("w", newline="") as f:
+        csv.writer(f).writerow(flds)
+
+    def keep(r: Row) -> None:  # written per row, so a killed run still leaves its results
+        rows.append(r)
+        with csv_path.open("a", newline="") as f:
+            csv.writer(f).writerow([getattr(r, k) if k in ("method", "param", "gop", "frames") else round(getattr(r, k), 2) for k in flds])
+        print(r.method, r.param, f"gop{r.gop}", round(r.bytes_per_frame), flush=True)
+
     for q in ([60] if a.quick else [40, 60, 80]):
         for sub in (["4:2:0"] if a.quick else ["4:2:0", "4:4:4"]):
-            rows.append(run_avif(ref, q, sub, 6)); print(rows[-1].method, rows[-1].param, round(rows[-1].bytes_per_frame))
+            for pm in (True, False):
+                keep(run_avif(ref, q, sub, 6, pm))
     with tempfile.TemporaryDirectory() as td:
         for codec in a.codecs.split(","):
             crfs = CRF_RANGE[codec][1:2] if a.quick else CRF_RANGE[codec]
@@ -214,18 +228,11 @@ def main() -> None:
                 for subs in (["4:2:0"] if a.quick else a.subs.split(",")):
                     for crf in crfs:
                         try:
-                            rows.append(run_video(ref, codec, crf, gop, subs, 6, Path(td)))
+                            keep(run_video(ref, codec, crf, gop, subs, a.speed, Path(td)))
                         except RuntimeError as e:
                             print(f"SKIP {codec} crf{crf} gop{gop} {subs}: {e}"); continue
-                        r = rows[-1]; print(r.method, r.param, f"gop{r.gop}", round(r.bytes_per_frame))
 
-    a.out.parent.mkdir(parents=True, exist_ok=True)
-    flds = ["method", "param", "gop", "frames", "bytes_per_frame", "psnr_alpha", "psnr_gray", "psnr_white", "decode_ms_per_frame", "random_access_frames"]
-    with a.out.with_suffix(".csv").open("w", newline="") as f:
-        wr = csv.writer(f); wr.writerow(flds)
-        for r in rows:
-            wr.writerow([getattr(r, k) if k in ("method", "param", "gop", "frames") else round(getattr(r, k), 2) for k in flds])
-    base = next(r.bytes_per_frame for r in rows if r.method == "avif-frame")
+    base = next(r.bytes_per_frame for r in rows if r.method == "avif-frame[pm-flag]" and r.param.startswith("q60/4:2:0"))
     md = ["| method | param | GOP | KB/frame | vs AVIF q60 | PSNR α | PSNR gray | PSNR white | decode ms/f | frames to show 1 |", "|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         md.append(f"| {r.method} | {r.param} | {r.gop} | {r.bytes_per_frame/1024:.1f} | {r.bytes_per_frame/base:.2f}x | {r.psnr_alpha:.1f} | {r.psnr_gray:.1f} | {r.psnr_white:.1f} | {r.decode_ms_per_frame:.1f} | {r.random_access_frames:.1f} |")
