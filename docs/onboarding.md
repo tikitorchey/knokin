@@ -96,7 +96,8 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 2. [spec.md](spec.md) — manifest、座標、グラフ、撮影ディレクトリ、移動ロジック
 3. [decisions.md](decisions.md) — D01〜D11(基本方針)と DD01〜DD44(開発上の決定)
 4. 各システムの現状: [system-core.md](system-core.md) / [system-capture.md](system-capture.md) / [system-packer.md](system-packer.md) / [system-viewer.md](system-viewer.md)。計測は [measurements.md](measurements.md)、テスト方針は [test-strategy.md](test-strategy.md)、経緯は [research-notes.md](research-notes.md)
-5. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
+5. 進行中の改修依頼: [handoff-alpha-removal.md](handoff-alpha-removal.md)(配信画像のアルファ廃止・背景黒固定、DD45〜DD47)
+6. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
 
 ## 7. 圧縮方式の探索(Day2、進行中)
 
