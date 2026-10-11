@@ -73,13 +73,14 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 
 試作の4システムは、机上テストと合成データでの動作確認まで完了。Blender 本体・実シーン・Android 実機での確認は**まだ行っていない**。
 
+**確認済み(前ブランチの実測。数値は [measurements.md](measurements.md)、決定は DD34〜DD43)**: 実シーンの撮影時間と容量、座標の向き(DD40)、影キャッチャーは使わない(DD36)、シードは `fixed`(DD38)、AVIF 既定値(DD41)、デコード方式(DD42)。いずれもデスクトップ Chromium とエミュレーションでの結果。
+
 **未了(実機・実シーンが必要)**
 
-1. 実シーンのテスト撮影(約100枚): 1枚の時間、EXR容量、サンプル数、**デノイズ/シード方針(D10)**、`use_persistent_data` の効果、GPU動作。
-2. Blender 本体で θ/φ の向きを目視確認(DD04)。影キャッチャー(D03)の要否。
-3. AVIF の既定値(DD27)の確定: quality / speed / 4:2:0 と 4:4:4、縁の品質、`premultiplyAlpha`、5,928枚換算の総容量。
-4. Android 実機計測: メモリ上限(`maxItems`)、`createImageBitmap` と `ImageDecoder` の速度、`concurrency`、先読みパラメータ。
-5. 操作感の調整: `degPerPx` `turnPx` `deadZoneDeg` `stickyDeg` は仮置き。決めたら `DEFAULT_MOVE_OPT` と `testdata/move_cases/` を更新(Python/TS 両側が通ること)。
+1. Android 実機計測([android-measurement.md](android-measurement.md)): メモリ上限(`maxItems`)、`createImageBitmap` と `ImageDecoder` の速度、`concurrency`、先読みパラメータ。ストレートアルファ AVIF の表示(DD44)。
+2. 実GPUでの撮影(DD37 はエラー経路のみ検証)、`use_persistent_data` の効果。
+3. 4:4:4 の採否(実素材・Android のハードウェアデコーダ対応で確認、DD41)。
+4. 操作感の調整: `degPerPx` `turnPx` `deadZoneDeg` `stickyDeg` は仮置き。決めたら `DEFAULT_MOVE_OPT` と `testdata/move_cases/` を更新(Python/TS 両側が通ること)。
 
 テストが保証するのは「決めた規則どおりに動くこと」で、操作感や画質の良し悪しではない。Blender / 実機が無い環境では、数値を推測で作らず、手順と計測の入口を整えて報告する。
 
@@ -94,7 +95,8 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 1. この文書
 2. [spec.md](spec.md) — manifest、座標、グラフ、撮影ディレクトリ、移動ロジック
 3. [decisions.md](decisions.md) — D01〜D11(基本方針)と DD01〜DD44(開発上の決定)
-4. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
+4. 各システムの現状: [system-core.md](system-core.md) / [system-capture.md](system-capture.md) / [system-packer.md](system-packer.md) / [system-viewer.md](system-viewer.md)。計測は [measurements.md](measurements.md)、テスト方針は [test-strategy.md](test-strategy.md)、経緯は [research-notes.md](research-notes.md)
+5. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
 
 ## 7. 圧縮方式の探索(Day2、進行中)
 
