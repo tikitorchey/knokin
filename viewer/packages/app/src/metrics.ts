@@ -10,7 +10,11 @@ export interface Summary {
 
 export class Samples {
   private buf: number[] = [];
-  constructor(private readonly cap = 300) {}
+  constructor(private readonly cap = 1000) {}
+
+  clear(): void {
+    this.buf = [];
+  }
 
   add(v: number): void {
     this.buf.push(v);
@@ -32,6 +36,12 @@ export class Metrics {
   readonly decodeMs = new Samples();
   readonly frameBytes = new Samples();
   readonly counters: Record<string, number> = {};
+
+  /** Forget everything measured so far (start of a scripted run). */
+  reset(): void {
+    for (const s of [this.latency, this.fetchMs, this.decodeMs, this.frameBytes]) s.clear();
+    for (const k of Object.keys(this.counters)) delete this.counters[k];
+  }
 
   inc(name: string, by = 1): void {
     this.counters[name] = (this.counters[name] ?? 0) + by;

@@ -1,0 +1,80 @@
+{
+ "frames": 4,
+ "width": 1920,
+ "height": 1080,
+ "refSpp": 256,
+ "configs": [
+  {
+   "name": "spp16-dn",
+   "spp": 16,
+   "args": [],
+   "firstSec": 19.496,
+   "meanSec": 15.367666666666667,
+   "medianSec": 15.465,
+   "meanBytes": 1280456.25,
+   "psnrMean": 54.812177658081055,
+   "psnrMin": 54.468971252441406
+  },
+  {
+   "name": "spp16-nodn",
+   "spp": 16,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 6.229,
+   "meanSec": 6.469666666666667,
+   "medianSec": 6.616,
+   "meanBytes": 1363986,
+   "psnrMean": 50.180715560913086,
+   "psnrMin": 49.72970962524414
+  },
+  {
+   "name": "spp32-dn",
+   "spp": 32,
+   "args": [],
+   "firstSec": 24.424,
+   "meanSec": 23.556666666666665,
+   "medianSec": 23.493,
+   "meanBytes": 1286083.75,
+   "psnrMean": 57.76780605316162,
+   "psnrMin": 57.34612274169922
+  },
+  {
+   "name": "spp32-nodn",
+   "spp": 32,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 12.997,
+   "meanSec": 12.962,
+   "medianSec": 13.23,
+   "meanBytes": 1341817.25,
+   "psnrMean": 53.592373847961426,
+   "psnrMin": 53.1712760925293
+  },
+  {
+   "name": "spp64-dn",
+   "spp": 64,
+   "args": [],
+   "firstSec": 37.711,
+   "meanSec": 34.75866666666667,
+   "medianSec": 34.685,
+   "meanBytes": 1291786,
+   "psnrMean": 60.207584381103516,
+   "psnrMin": 59.731529235839844
+  },
+  {
+   "name": "spp64-nodn",
+   "spp": 64,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 24.467,
+   "meanSec": 25.118333333333332,
+   "medianSec": 25.184,
+   "meanBytes": 1325389.75,
+   "psnrMean": 56.81225395202637,
+   "psnrMin": 56.425872802734375
+  }
+ ]
+}

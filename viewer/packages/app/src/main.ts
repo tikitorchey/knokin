@@ -2,12 +2,17 @@ import { parseManifest, refKey, type Manifest } from '@knokin/core';
 import { FrameCache } from './cache';
 import { Controller, DEFAULT_CONTROLLER_OPT, type ShowEvent } from './controller';
 import { DEFAULT_LOADER_OPT, makeLoader, supportsImageDecoder, type Frame, type LoaderOpt } from './loader';
+import { DEFAULT_BENCH_OPT, runBench } from './bench';
 import { Metrics, formatStats } from './metrics';
 import { CanvasView } from './render';
 import { buildPanel, type Control } from './ui';
 import { makeUrlOf } from './urls';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+
+function urlNum(params: URLSearchParams, k: string): number | null {
+  return params.has(k) && Number.isFinite(Number(params.get(k))) ? Number(params.get(k)) : null;
+}
 
 async function boot(): Promise<void> {
   const params = new URLSearchParams(location.search);
@@ -19,14 +24,21 @@ async function boot(): Promise<void> {
   const { manifest, graph } = parseManifest(await res.text());
 
   const metrics = new Metrics();
+  // URL overrides so a run is fully described by its URL (useful on a phone: no sliders to set).
+  //   speed=<px/s> (scripted drag speed)  decode=createImageBitmap|imageDecoder  pm=premultiply|none|default  cache=<maxItems>  conc=<n>  budget=<n>
+  const num = (k: string): number | null => urlNum(params, k);
   const loaderOpt: LoaderOpt = { ...DEFAULT_LOADER_OPT };
+  const decodeP = params.get('decode');
+  if (decodeP === 'createImageBitmap' || decodeP === 'imageDecoder') loaderOpt.strategy = decodeP;
+  const pmP = params.get('pm');
+  if (pmP === 'premultiply' || pmP === 'none' || pmP === 'default') loaderOpt.premultiply = pmP;
   const view = new CanvasView($('view') as HTMLCanvasElement, manifest.image.width / manifest.image.height);
   const hasLow = Boolean(manifest.frames.nodeLow && manifest.image.low);
 
   let controller: Controller<Frame> | null = null;
   const cache = new FrameCache<Frame>(
     makeLoader(manifestUrl, makeUrlOf(manifest.frames, false), () => loaderOpt, metrics),
-    { maxItems: 48, concurrency: 6 },
+    { maxItems: num('cache') ?? 48, concurrency: num('conc') ?? 6 },
     {
       onReady: (k) => controller?.onReady(k),
       onFail: (k, e) => { metrics.inc('fail'); console.warn('load failed', k, e); },
@@ -56,8 +68,16 @@ async function boot(): Promise<void> {
     queued = e;
   };
 
+  //   dpp=<degPerPx> turn=<turnPx> dead=<deadZoneDeg> sticky=<stickyDeg>  (feel tuning without sliders)
+  const mv = { ...DEFAULT_CONTROLLER_OPT.move };
+  mv.degPerPx = num('dpp') ?? mv.degPerPx;
+  mv.turnPx = num('turn') ?? mv.turnPx;
+  mv.deadZoneDeg = num('dead') ?? mv.deadZoneDeg;
+  mv.stickyDeg = num('sticky') ?? mv.stickyDeg;
   controller = new Controller<Frame>(graph, manifest.start.node, cache, lowCache, show, metrics, () => performance.now(), {
     ...DEFAULT_CONTROLLER_OPT,
+    move: mv,
+    budget: num('budget') ?? DEFAULT_CONTROLLER_OPT.budget,
   });
 
   layout(view);
@@ -133,8 +153,51 @@ function setupDebug(
   buildPanel($('controls'), controls);
   $('reset').onclick = () => c.reset(manifest.start.node);
   $('retry').onclick = () => { cache.clearFailures(); c.setOpt({}); };
+  let scripted: Record<string, unknown> | null = null;
+  const report = () => ({
+    tag: new URLSearchParams(location.search).get('tag') ?? '',
+    ua: navigator.userAgent,
+    dpr: devicePixelRatio,
+    screen: [innerWidth, innerHeight],
+    image: [manifest.image.width, manifest.image.height],
+    cores: navigator.hardwareConcurrency,
+    deviceMemoryGB: (navigator as unknown as { deviceMemory?: number }).deviceMemory ?? null,
+    opt: c.opt,
+    cache: { maxItems: cache.opt.maxItems, concurrency: cache.opt.concurrency },
+    loader: loaderOpt,
+    heapMB: heapMB(),
+    peakHeapMB: peakHeap,
+    // JS heap does not include decoded bitmaps (GPU/native memory); estimate them as width*height*4 per decoded frame.
+    decodedMB: (cache.readyCount * manifest.image.width * manifest.image.height * 4) / 1048576,
+    peakDecodedMB: peakDecoded,
+    scripted,
+    ...metrics.snapshot(),
+  });
+  let peakHeap = 0;
+  let peakDecoded = 0;
+  $('bench').onclick = async () => {
+    const btn = $('bench') as HTMLButtonElement;
+    btn.disabled = true;
+    metrics.reset();
+    peakHeap = 0;
+    peakDecoded = 0;
+    c.reset(manifest.start.node);
+    const benchOpt = { ...DEFAULT_BENCH_OPT, speedPxPerSec: urlNum(new URLSearchParams(location.search), 'speed') ?? DEFAULT_BENCH_OPT.speedPxPerSec };
+    const r = await runBench(c, benchOpt, () => {
+      peakHeap = Math.max(peakHeap, heapMB() ?? 0);
+      peakDecoded = Math.max(peakDecoded, (cache.readyCount * manifest.image.width * manifest.image.height * 4) / 1048576);
+    });
+    scripted = { path: benchOpt.path, speedPxPerSec: benchOpt.speedPxPerSec, wallMs: r.wallMs };
+    (window as unknown as { __knokinBench: unknown }).__knokinBench = report();
+    showJson(JSON.stringify(report(), null, 2));
+    btn.disabled = false;
+  };
+  // Plain-http LAN pages cannot use the clipboard API and downloads are awkward on phones: also show the JSON.
+  const showJson = (json: string) => { ($('json') as HTMLTextAreaElement).value = json; };
   $('export').onclick = () => {
-    const blob = new Blob([JSON.stringify({ ua: navigator.userAgent, dpr: devicePixelRatio, opt: c.opt, loader: loaderOpt, ...metrics.snapshot() }, null, 2)], { type: 'application/json' });
+    const json = JSON.stringify(report(), null, 2);
+    showJson(json);
+    const blob = new Blob([json], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'knokin-metrics.json';
@@ -142,16 +205,23 @@ function setupDebug(
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
 
+  if (new URLSearchParams(location.search).has('bench')) setTimeout(() => $('bench').click(), 1500); // auto-run (automation)
+
   const bytes = manifest.image.width * manifest.image.height * 4;
   setInterval(() => {
-    const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
+    const mem = heapMB();
     hud.textContent = formatStats(metrics, {
       pos: JSON.stringify(c.state.pos),
       decoded: `${cache.readyCount} (~${((cache.readyCount * bytes) / 1048576).toFixed(0)}MB) inflight ${cache.inFlight}`,
       low: low ? low.readyCount : '-',
-      heap: mem ? `${(mem.usedJSHeapSize / 1048576).toFixed(0)}MB` : 'n/a',
+      heap: mem !== null ? `${mem.toFixed(0)}MB` : 'n/a',
     });
   }, 500);
+}
+
+function heapMB(): number | null {
+  const mem = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
+  return mem ? mem.usedJSHeapSize / 1048576 : null;
 }
 
 boot().catch((e: unknown) => {

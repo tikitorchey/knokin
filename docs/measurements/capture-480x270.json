@@ -1,0 +1,236 @@
+{
+ "frames": 12,
+ "width": 480,
+ "height": 270,
+ "refSpp": 512,
+ "configs": [
+  {
+   "name": "spp4-dn",
+   "spp": 4,
+   "args": [],
+   "firstSec": 0.736,
+   "meanSec": 0.6176363636363637,
+   "medianSec": 0.596,
+   "meanBytes": 56891.5,
+   "psnrMean": 41.00473658243815,
+   "psnrMin": 40.43735885620117
+  },
+  {
+   "name": "spp4-nodn",
+   "spp": 4,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 0.07,
+   "meanSec": 0.06536363636363636,
+   "medianSec": 0.065,
+   "meanBytes": 62403.083333333336,
+   "psnrMean": 38.58417892456055,
+   "psnrMin": 38.259517669677734
+  },
+  {
+   "name": "spp8-dn",
+   "spp": 8,
+   "args": [],
+   "firstSec": 0.815,
+   "meanSec": 0.6661818181818182,
+   "medianSec": 0.658,
+   "meanBytes": 56571.75,
+   "psnrMean": 44.927511850992836,
+   "psnrMin": 44.40010070800781
+  },
+  {
+   "name": "spp8-nodn",
+   "spp": 8,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 0.132,
+   "meanSec": 0.12245454545454545,
+   "medianSec": 0.119,
+   "meanBytes": 62043.833333333336,
+   "psnrMean": 42.616913159688316,
+   "psnrMin": 42.10636520385742
+  },
+  {
+   "name": "spp16-dn",
+   "spp": 16,
+   "args": [],
+   "firstSec": 0.967,
+   "meanSec": 0.7840909090909091,
+   "medianSec": 0.77,
+   "meanBytes": 57327.083333333336,
+   "psnrMean": 49.18091710408529,
+   "psnrMin": 48.722740173339844
+  },
+  {
+   "name": "spp16-nodn",
+   "spp": 16,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 0.235,
+   "meanSec": 0.21372727272727274,
+   "medianSec": 0.216,
+   "meanBytes": 61965.166666666664,
+   "psnrMean": 47.00042247772217,
+   "psnrMin": 46.621063232421875
+  },
+  {
+   "name": "spp32-dn",
+   "spp": 32,
+   "args": [],
+   "firstSec": 1.052,
+   "meanSec": 0.9845454545454545,
+   "medianSec": 0.975,
+   "meanBytes": 58472.25,
+   "psnrMean": 52.42792765299479,
+   "psnrMin": 51.93382263183594
+  },
+  {
+   "name": "spp32-nodn",
+   "spp": 32,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 0.443,
+   "meanSec": 0.46145454545454545,
+   "medianSec": 0.467,
+   "meanBytes": 60911.166666666664,
+   "psnrMean": 50.8709659576416,
+   "psnrMin": 50.49391174316406
+  },
+  {
+   "name": "spp64-dn",
+   "spp": 64,
+   "args": [],
+   "firstSec": 1.592,
+   "meanSec": 1.3987272727272728,
+   "medianSec": 1.42,
+   "meanBytes": 59468.333333333336,
+   "psnrMean": 55.41435845692953,
+   "psnrMin": 54.73473358154297
+  },
+  {
+   "name": "spp64-nodn",
+   "spp": 64,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 0.929,
+   "meanSec": 0.9115454545454545,
+   "medianSec": 0.931,
+   "meanBytes": 60538.166666666664,
+   "psnrMean": 54.32705561319987,
+   "psnrMin": 53.70929718017578
+  },
+  {
+   "name": "spp128-dn",
+   "spp": 128,
+   "args": [],
+   "firstSec": 1.697,
+   "meanSec": 1.6794545454545455,
+   "medianSec": 1.719,
+   "meanBytes": 60219.5,
+   "psnrMean": 57.70358022054037,
+   "psnrMin": 57.150794982910156
+  },
+  {
+   "name": "spp128-nodn",
+   "spp": 128,
+   "args": [
+    "--no-denoise"
+   ],
+   "firstSec": 1.057,
+   "meanSec": 1.1204545454545454,
+   "medianSec": 1.129,
+   "meanBytes": 61044.416666666664,
+   "psnrMean": 56.629533767700195,
+   "psnrMin": 56.252586364746094
+  },
+  {
+   "name": "spp16-dn-nopersist",
+   "spp": 16,
+   "args": [
+    "--no-persistent-data"
+   ],
+   "firstSec": 0.894,
+   "meanSec": 0.9353636363636364,
+   "medianSec": 0.918,
+   "meanBytes": 57327.083333333336,
+   "psnrMean": 49.18091710408529,
+   "psnrMin": 48.722740173339844
+  },
+  {
+   "name": "spp16-dn-perframe",
+   "spp": 16,
+   "args": [
+    "--seed-mode",
+    "per-frame"
+   ],
+   "firstSec": 0.875,
+   "meanSec": 0.8471818181818181,
+   "medianSec": 0.844,
+   "meanBytes": 57350.083333333336,
+   "psnrMean": 49.21542517344157,
+   "psnrMin": 48.768672943115234
+  },
+  {
+   "name": "spp16-nodn-perframe",
+   "spp": 16,
+   "args": [
+    "--no-denoise",
+    "--seed-mode",
+    "per-frame"
+   ],
+   "firstSec": 0.25,
+   "meanSec": 0.25072727272727274,
+   "medianSec": 0.252,
+   "meanBytes": 62089.75,
+   "psnrMean": 47.03299140930176,
+   "psnrMin": 46.684043884277344
+  },
+  {
+   "name": "spp64-dn-nopersist",
+   "spp": 64,
+   "args": [
+    "--no-persistent-data"
+   ],
+   "firstSec": 1.574,
+   "meanSec": 1.639181818181818,
+   "medianSec": 1.697,
+   "meanBytes": 59468.333333333336,
+   "psnrMean": 55.41435845692953,
+   "psnrMin": 54.73473358154297
+  },
+  {
+   "name": "spp64-dn-perframe",
+   "spp": 64,
+   "args": [
+    "--seed-mode",
+    "per-frame"
+   ],
+   "firstSec": 1.687,
+   "meanSec": 1.411181818181818,
+   "medianSec": 1.412,
+   "meanBytes": 59454.583333333336,
+   "psnrMean": 55.43697198232015,
+   "psnrMin": 54.821800231933594
+  },
+  {
+   "name": "spp64-nodn-perframe",
+   "spp": 64,
+   "args": [
+    "--no-denoise",
+    "--seed-mode",
+    "per-frame"
+   ],
+   "firstSec": 0.804,
+   "meanSec": 0.8183636363636364,
+   "medianSec": 0.816,
+   "meanBytes": 60549.333333333336,
+   "psnrMean": 54.34343115488688,
+   "psnrMin": 53.538482666015625
+  }
+ ]
+}

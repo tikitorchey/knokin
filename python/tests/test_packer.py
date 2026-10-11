@@ -198,3 +198,15 @@ def test_cli_main(tmp_path, capsys):
     assert "packed: written=" in capsys.readouterr().out
     _, wd2, _, _ = make_capture(tmp_path / "x", complete=False)
     assert main(["--workdir", str(wd2), "--out", str(tmp_path / "o2")]) == 2
+
+
+def test_bleed_fills_only_invisible_pixels():
+    img = np.zeros((7, 7, 4), np.uint8)
+    img[3, 3] = (200, 100, 50, 255)
+    img[3, 4] = (10, 20, 30, 7)
+    out = color.bleed_straight(img, 2)
+    assert (out[..., 3] == img[..., 3]).all()  # alpha untouched
+    assert (out[3, 3] == img[3, 3]).all() and (out[3, 4] == img[3, 4]).all()  # visible pixels untouched
+    assert tuple(out[3, 2, :3]) != (0, 0, 0) and out[3, 2, 3] == 0  # neighbour got colour, still invisible
+    assert (out[0, 0, :3] == 0).all()  # beyond `iters` px stays untouched
+    assert (color.bleed_straight(img, 0) == img).all()

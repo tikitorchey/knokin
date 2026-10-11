@@ -71,7 +71,7 @@ schema, meta?, coords, camera, image, frames, nodes, edges, start, render?
 | --- | --- |
 | `coords` | 規約の宣言。リーダーが実装する規約と完全一致しなければ拒否 |
 | `camera` | `projection`, `focalMm`, `sensorWidthMm`, `distance`, `pivot` |
-| `image` | `width`, `height`, `alpha`(`premultiplied`\|`straight`), `colorSpace`(`sRGB`), `low?`(`{width,height}`: 低解像度ノード画像) |
+| `image` | `width`, `height`, `alpha`(`premultiplied`\|`straight`。**新規は `straight`**、DD34), `colorSpace`(`sRGB`), `low?`(`{width,height}`: 低解像度ノード画像) |
 | `frames` | `codec`(`image-seq`), `format`, `base`, `node`, `nodeLow?`, `edge` |
 | `start` | `{ "node": id }`。生成時は (0,0) に最も近いノード |
 | `render` | 撮影条件の記録(`graphPreset`、Blender版・サンプル数・シード・ハッシュ等)。ビューアは参照しない |

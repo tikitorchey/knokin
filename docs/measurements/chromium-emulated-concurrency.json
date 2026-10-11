@@ -1,0 +1,657 @@
+[
+  {
+    "variant": "speed=1200&conc=1",
+    "tag": "speed=1200&conc=1",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "screen": [
+      900,
+      560
+    ],
+    "image": [
+      1920,
+      1080
+    ],
+    "cores": 4,
+    "deviceMemoryGB": 8,
+    "opt": {
+      "move": {
+        "degPerPx": 0.25,
+        "turnPx": 12,
+        "deadZoneDeg": 45,
+        "stickyDeg": 15
+      },
+      "prefetch": {
+        "fanFrames": 3,
+        "behindFrames": 2
+      },
+      "budget": 16
+    },
+    "cache": {
+      "maxItems": 48,
+      "concurrency": 1
+    },
+    "loader": {
+      "strategy": "createImageBitmap",
+      "premultiply": "premultiply"
+    },
+    "heapMB": 2.203963279724121,
+    "peakHeapMB": 2.593961715698242,
+    "decodedMB": 379.6875,
+    "peakDecodedMB": 379.6875,
+    "scripted": {
+      "path": [
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            -1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            -1
+          ],
+          "seconds": 3
+        },
+        {
+          "dir": [
+            -1,
+            -1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 3
+        }
+      ],
+      "speedPxPerSec": 1200,
+      "wallMs": 20122.49999999963
+    },
+    "latency": {
+      "n": 247,
+      "mean": 20.20526315809308,
+      "p50": 18.800000000373984,
+      "p95": 25.500000000371074,
+      "max": 72.69999999999982
+    },
+    "fetchMs": {
+      "n": 145,
+      "mean": 63.747586206867005,
+      "p50": 61.90000000037253,
+      "p95": 80.09999999962747,
+      "max": 94
+    },
+    "decodeMs": {
+      "n": 145,
+      "mean": 33.56275862067424,
+      "p50": 29.700000000186265,
+      "p95": 54,
+      "max": 86.8999999994412
+    },
+    "frameBytes": {
+      "n": 145,
+      "mean": 27795.64827586207,
+      "p50": 27537,
+      "p95": 30460,
+      "max": 31674
+    },
+    "counters": {
+      "abort": 102,
+      "hit": 226,
+      "miss": 51,
+      "lowShown": 14
+    },
+    "hitRate": 0.8158844765342961
+  },
+  {
+    "variant": "speed=1200&conc=2",
+    "tag": "speed=1200&conc=2",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "screen": [
+      900,
+      560
+    ],
+    "image": [
+      1920,
+      1080
+    ],
+    "cores": 4,
+    "deviceMemoryGB": 8,
+    "opt": {
+      "move": {
+        "degPerPx": 0.25,
+        "turnPx": 12,
+        "deadZoneDeg": 45,
+        "stickyDeg": 15
+      },
+      "prefetch": {
+        "fanFrames": 3,
+        "behindFrames": 2
+      },
+      "budget": 16
+    },
+    "cache": {
+      "maxItems": 48,
+      "concurrency": 2
+    },
+    "loader": {
+      "strategy": "createImageBitmap",
+      "premultiply": "premultiply"
+    },
+    "heapMB": 2.7626514434814453,
+    "peakHeapMB": 2.808079719543457,
+    "decodedMB": 379.6875,
+    "peakDecodedMB": 379.6875,
+    "scripted": {
+      "path": [
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            -1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            -1
+          ],
+          "seconds": 3
+        },
+        {
+          "dir": [
+            -1,
+            -1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 3
+        }
+      ],
+      "speedPxPerSec": 1200,
+      "wallMs": 20102.799999999814
+    },
+    "latency": {
+      "n": 272,
+      "mean": 20.742647059206607,
+      "p50": 19.000000000558884,
+      "p95": 31.900000000745422,
+      "max": 86.60000000018636
+    },
+    "fetchMs": {
+      "n": 271,
+      "mean": 66.2623616236183,
+      "p50": 64.70000000018626,
+      "p95": 88.70000000018626,
+      "max": 122.20000000018626
+    },
+    "decodeMs": {
+      "n": 271,
+      "mean": 39.97195571955857,
+      "p50": 37.89999999944121,
+      "p95": 59.700000000186265,
+      "max": 88.79999999981374
+    },
+    "frameBytes": {
+      "n": 271,
+      "mean": 27791.87453874539,
+      "p50": 27537,
+      "p95": 30460,
+      "max": 31160
+    },
+    "counters": {
+      "hit": 256,
+      "abort": 134,
+      "miss": 22,
+      "lowShown": 5
+    },
+    "hitRate": 0.920863309352518
+  },
+  {
+    "variant": "speed=1200&conc=4",
+    "tag": "speed=1200&conc=4",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "screen": [
+      900,
+      560
+    ],
+    "image": [
+      1920,
+      1080
+    ],
+    "cores": 4,
+    "deviceMemoryGB": 8,
+    "opt": {
+      "move": {
+        "degPerPx": 0.25,
+        "turnPx": 12,
+        "deadZoneDeg": 45,
+        "stickyDeg": 15
+      },
+      "prefetch": {
+        "fanFrames": 3,
+        "behindFrames": 2
+      },
+      "budget": 16
+    },
+    "cache": {
+      "maxItems": 48,
+      "concurrency": 4
+    },
+    "loader": {
+      "strategy": "createImageBitmap",
+      "premultiply": "premultiply"
+    },
+    "heapMB": 2.468158721923828,
+    "peakHeapMB": 3.5337295532226562,
+    "decodedMB": 379.6875,
+    "peakDecodedMB": 379.6875,
+    "scripted": {
+      "path": [
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            -1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            -1
+          ],
+          "seconds": 3
+        },
+        {
+          "dir": [
+            -1,
+            -1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 3
+        }
+      ],
+      "speedPxPerSec": 1200,
+      "wallMs": 20116.7
+    },
+    "latency": {
+      "n": 267,
+      "mean": 23.97528089868592,
+      "p50": 20,
+      "p95": 44.599999999441934,
+      "max": 73.19999999944139
+    },
+    "fetchMs": {
+      "n": 365,
+      "mean": 82.24438356161373,
+      "p50": 79.5,
+      "p95": 128.09999999962747,
+      "max": 150.29999999981374
+    },
+    "decodeMs": {
+      "n": 364,
+      "mean": 57.696153846175335,
+      "p50": 54.5,
+      "p95": 93.79999999981374,
+      "max": 120.1000000005588
+    },
+    "frameBytes": {
+      "n": 365,
+      "mean": 27986.260273972603,
+      "p50": 27732,
+      "p95": 30664,
+      "max": 31674
+    },
+    "counters": {
+      "hit": 257,
+      "miss": 21,
+      "abort": 244,
+      "lowShown": 1
+    },
+    "hitRate": 0.9244604316546763
+  },
+  {
+    "variant": "speed=1200&conc=6",
+    "tag": "speed=1200&conc=6",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "screen": [
+      900,
+      560
+    ],
+    "image": [
+      1920,
+      1080
+    ],
+    "cores": 4,
+    "deviceMemoryGB": 8,
+    "opt": {
+      "move": {
+        "degPerPx": 0.25,
+        "turnPx": 12,
+        "deadZoneDeg": 45,
+        "stickyDeg": 15
+      },
+      "prefetch": {
+        "fanFrames": 3,
+        "behindFrames": 2
+      },
+      "budget": 16
+    },
+    "cache": {
+      "maxItems": 48,
+      "concurrency": 6
+    },
+    "loader": {
+      "strategy": "createImageBitmap",
+      "premultiply": "premultiply"
+    },
+    "heapMB": 2.1436233520507812,
+    "peakHeapMB": 3.24222469329834,
+    "decodedMB": 379.6875,
+    "peakDecodedMB": 379.6875,
+    "scripted": {
+      "path": [
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            -1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            -1
+          ],
+          "seconds": 3
+        },
+        {
+          "dir": [
+            -1,
+            -1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 3
+        }
+      ],
+      "speedPxPerSec": 1200,
+      "wallMs": 20145.199999999815
+    },
+    "latency": {
+      "n": 266,
+      "mean": 26.10563909755833,
+      "p50": 21.799999999813735,
+      "p95": 52.2999999996282,
+      "max": 82.3999999994412
+    },
+    "fetchMs": {
+      "n": 473,
+      "mean": 92.69915433404041,
+      "p50": 91.90000000037253,
+      "p95": 138.6000000005588,
+      "max": 190
+    },
+    "decodeMs": {
+      "n": 470,
+      "mean": 69.15999999999246,
+      "p50": 65.29999999981374,
+      "p95": 111.79999999981374,
+      "max": 150
+    },
+    "frameBytes": {
+      "n": 473,
+      "mean": 27903.389006342495,
+      "p50": 27607,
+      "p95": 30673,
+      "max": 31674
+    },
+    "counters": {
+      "hit": 246,
+      "miss": 31,
+      "abort": 319,
+      "lowShown": 8
+    },
+    "hitRate": 0.8880866425992779
+  },
+  {
+    "variant": "speed=1200&conc=12",
+    "tag": "speed=1200&conc=12",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "screen": [
+      900,
+      560
+    ],
+    "image": [
+      1920,
+      1080
+    ],
+    "cores": 4,
+    "deviceMemoryGB": 8,
+    "opt": {
+      "move": {
+        "degPerPx": 0.25,
+        "turnPx": 12,
+        "deadZoneDeg": 45,
+        "stickyDeg": 15
+      },
+      "prefetch": {
+        "fanFrames": 3,
+        "behindFrames": 2
+      },
+      "budget": 16
+    },
+    "cache": {
+      "maxItems": 48,
+      "concurrency": 12
+    },
+    "loader": {
+      "strategy": "createImageBitmap",
+      "premultiply": "premultiply"
+    },
+    "heapMB": 2.6034116744995117,
+    "peakHeapMB": 3.789557456970215,
+    "decodedMB": 379.6875,
+    "peakDecodedMB": 379.6875,
+    "scripted": {
+      "path": [
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            -1,
+            0
+          ],
+          "seconds": 4
+        },
+        {
+          "dir": [
+            0,
+            -1
+          ],
+          "seconds": 3
+        },
+        {
+          "dir": [
+            -1,
+            -1
+          ],
+          "seconds": 2
+        },
+        {
+          "dir": [
+            1,
+            0
+          ],
+          "seconds": 3
+        }
+      ],
+      "speedPxPerSec": 1200,
+      "wallMs": 20144.6
+    },
+    "latency": {
+      "n": 266,
+      "mean": 29.78947368401815,
+      "p50": 23.400000000001455,
+      "p95": 64.09999999944193,
+      "max": 102.5
+    },
+    "fetchMs": {
+      "n": 569,
+      "mean": 122.6727592266952,
+      "p50": 117.70000000018626,
+      "p95": 190.59999999962747,
+      "max": 303.69999999925494
+    },
+    "decodeMs": {
+      "n": 569,
+      "mean": 86.78488576454266,
+      "p50": 83.59999999962747,
+      "p95": 157.79999999981374,
+      "max": 231.5
+    },
+    "frameBytes": {
+      "n": 569,
+      "mean": 27936.38137082601,
+      "p50": 27607,
+      "p95": 30673,
+      "max": 31674
+    },
+    "counters": {
+      "hit": 242,
+      "miss": 36,
+      "lowShown": 10,
+      "abort": 405
+    },
+    "hitRate": 0.8705035971223022
+  }
+]

@@ -93,7 +93,7 @@ python -m knokin_packer --workdir out/ --out dist/ [--quality 60] [--speed 6] [-
 
 1. この文書
 2. [spec.md](spec.md) — manifest、座標、グラフ、撮影ディレクトリ、移動ロジック
-3. [decisions.md](decisions.md) — D01〜D11(基本方針)と DD01〜DD33(開発上の決定)
+3. [decisions.md](decisions.md) — D01〜D11(基本方針)と DD01〜DD44(開発上の決定)
 4. コード: `python/knokin_core/` → `viewer/packages/core/src/` → 各システム
 
 ## 7. 圧縮方式の探索(Day2、進行中)
@@ -105,6 +105,6 @@ PYTHONPATH=python python python/tools/codec_bench.py --frames <エッジ1本分�
 ```
 
 - 入力は**実レンダーのエッジ1本分**(ノード→途中フレーム→ノード、30°なら31枚)。`--synthetic` は動作確認用で、数値は参考にならない。
-- 結果の表は `report.md` / `report.csv`。再実行は続きから再開する(`--fresh` でやり直し)。AVIF の比較基準はストレートアルファ(DD34)。
+- 結果の表は `report.md` / `report.csv`。再実行は続きから再開する(`--fresh` でやり直し)。AVIF の比較基準はストレートアルファ(DD44)。
 - 予備調査の結果と結論は [research-compression.md](research-compression.md)。方針の決定は未検証項目の実測後に DD として行う。
 - 未着手: WebCodecs `VideoDecoder` でのブラウザ側デコード、キーフレーム(ノード)設計、逆再生コスト。

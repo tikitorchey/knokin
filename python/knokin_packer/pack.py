@@ -1,6 +1,6 @@
 """Pack a capture work dir into deployable AVIF sequences and a final manifest.
 
-Input : <workdir>/manifest.json, capture.jsonl, masters/**.exr   (see spec-manifest-v0.md §7)
+Input : <workdir>/manifest.json, capture.jsonl, masters/**.exr   (see spec.md §7)
 Output: <out>/manifest.json, <out>/<frames.base>/..., <out>/pack.jsonl (idempotency log)
 
 Re-running skips outputs whose source hash and settings are unchanged. Outputs are written to
@@ -25,7 +25,7 @@ from knokin_core.manifest import Manifest, loads
 from knokin_core.resolve import resolve
 
 from .avif import AvifSettings, downscale, save_avif
-from .color import PREMULTIPLIED, STRAIGHT, encode_rgba8
+from .color import PREMULTIPLIED, STRAIGHT, bleed_straight, encode_rgba8
 from .exrio import read_exr_rgba
 
 PACK_LOG = "pack.jsonl"
@@ -44,6 +44,7 @@ class PackSettings:
     avif: AvifSettings = AvifSettings()
     low_width: int = 480  # node low-resolution images; 0 disables them
     partial: bool = False  # pack only what has been captured (for measuring a test shoot)
+    bleed: int = 0  # straight alpha only: grow edge colour this many px into transparent pixels (docs/measurements.md)
 
     def digest(self) -> str:
         blob = json.dumps(asdict(self), sort_keys=True).encode()
@@ -153,7 +154,7 @@ def pack(
     out.mkdir(parents=True, exist_ok=True)
     prev = read_pack_log(out)
     sdigest = settings.digest()
-    # Delivered AVIF is always straight alpha (DD34): Chrome ignores the AVIF premultiplied flag, so a
+    # Delivered AVIF is always straight alpha (DD34, DD44): Chrome ignores the AVIF premultiplied flag, so a
     # premultiplied file renders with darkened semi-transparent pixels. image.alpha only describes the masters.
     alpha, premult = STRAIGHT, False
     written = skipped = 0
@@ -173,6 +174,8 @@ def pack(
         img = cache[1]
         if o.low:
             img = downscale(img, settings.low_width, premult)
+        if not premult:
+            img = bleed_straight(img, settings.bleed)
         final.parent.mkdir(parents=True, exist_ok=True)
         part = js.part_path(final)
         part.unlink(missing_ok=True)
@@ -224,7 +227,7 @@ def write_final_manifest(
         render["capture"] = json.loads(meta_path.read_text(encoding="utf-8"))
     render["pack"] = {
         "version": PACK_VERSION, "avif": asdict(settings.avif), "lowWidth": settings.low_width,
-        "partial": bool(skip),
+        "bleed": settings.bleed, "partial": bool(skip),
     }
     manifest.render = render
     image = dict(manifest.image)
