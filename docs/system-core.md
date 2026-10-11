@@ -1,6 +1,6 @@
 # 共有コア仕様(`python/knokin_core`)とテストデータ
 
-現在の実装の記述。manifest・座標・グラフの**規則そのもの**は [spec-manifest-v0.md](spec-manifest-v0.md)。ここは実装の地図と、Python と TypeScript を一致させる仕組み。
+現在の実装の記述。manifest・座標・グラフの**規則そのもの**は [spec.md](spec.md)。ここは実装の地図と、Python と TypeScript を一致させる仕組み。
 
 ## 1. モジュール(標準ライブラリのみ。Blender 同梱 Python に追加導入なしで動く、DD09)
 

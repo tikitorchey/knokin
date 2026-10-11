@@ -182,6 +182,14 @@ def test_straight_alpha_manifest(tmp_path):
     assert np.abs(px[H // 2, W // 2].astype(int) - expected[H // 2, W // 2]).max() <= 6
 
 
+def test_output_is_always_straight_alpha(tmp_path):
+    """DD34: Chrome ignores the AVIF premultiplied flag, so premultiplied masters are delivered as straight."""
+    m, wd, _, _ = make_capture(tmp_path, alpha="premultiplied")
+    out = tmp_path / "out"
+    pack(wd, out, PackSettings(low_width=0))
+    assert json.loads((out / "manifest.json").read_text())["image"]["alpha"] == "straight"
+
+
 def test_cli_main(tmp_path, capsys):
     from knokin_packer.__main__ import main
 
@@ -202,9 +210,3 @@ def test_bleed_fills_only_invisible_pixels():
     assert tuple(out[3, 2, :3]) != (0, 0, 0) and out[3, 2, 3] == 0  # neighbour got colour, still invisible
     assert (out[0, 0, :3] == 0).all()  # beyond `iters` px stays untouched
     assert (color.bleed_straight(img, 0) == img).all()
-
-
-def test_premultiplied_pack_warns(tmp_path):
-    m, wd, _, _ = make_capture(tmp_path)
-    with pytest.warns(UserWarning, match="premultiplied"):
-        pack(wd, tmp_path / "out", PackSettings(low_width=0))

@@ -82,7 +82,7 @@ schema, meta?, coords, camera, image, frames, nodes, edges, start, render?
 
 - `testdata/manifests/minimal.json`: 3ノード・3エッジ(手書き)。
 - `testdata/manifests/grid30_cross.json`: プリセットから生成した正解。Python のテストが再生成して一致を確認する。TypeScript 側も同じファイルを読み、ノード数・エッジ数・総画像数・resolve 結果を検証する。
-- `testdata/move_cases/`(予定): 「この位置から、このドラッグで、この位置」を JSON で持つ。
+- `testdata/move_cases/`: 「この位置から、このドラッグで、この位置」を JSON で持つ(move / frameAt / prefetch)。Python/TS 両側で検証。
 
 ## 7. 撮影作業ディレクトリ(capture work dir)
 

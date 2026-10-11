@@ -1,6 +1,6 @@
 """Pack a capture work dir into deployable AVIF sequences and a final manifest.
 
-Input : <workdir>/manifest.json, capture.jsonl, masters/**.exr   (see spec-manifest-v0.md §7)
+Input : <workdir>/manifest.json, capture.jsonl, masters/**.exr   (see spec.md §7)
 Output: <out>/manifest.json, <out>/<frames.base>/..., <out>/pack.jsonl (idempotency log)
 
 Re-running skips outputs whose source hash and settings are unchanged. Outputs are written to
@@ -12,7 +12,6 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import warnings
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Callable
@@ -45,7 +44,7 @@ class PackSettings:
     avif: AvifSettings = AvifSettings()
     low_width: int = 480  # node low-resolution images; 0 disables them
     partial: bool = False  # pack only what has been captured (for measuring a test shoot)
-    bleed: int = 0  # straight alpha only: grow edge colour this many px into transparent pixels (docs/dev/measurements.md)
+    bleed: int = 0  # straight alpha only: grow edge colour this many px into transparent pixels (docs/measurements.md)
 
     def digest(self) -> str:
         blob = json.dumps(asdict(self), sort_keys=True).encode()
@@ -135,12 +134,6 @@ def pack(
     alpha = manifest.image.get("alpha", PREMULTIPLIED)
     if alpha not in (PREMULTIPLIED, STRAIGHT):
         raise PackError(f"image.alpha {alpha!r} is not supported")
-    if alpha == PREMULTIPLIED:
-        warnings.warn(
-            "image.alpha='premultiplied': AVIF quantisation breaks 'colour <= alpha' at the silhouette (measured ~13 dB "
-            "worse at the edge than 'straight'; DD34). Use image.alpha='straight' for new shoots.",
-            stacklevel=2,
-        )
     if manifest.image.get("colorSpace") != "sRGB":
         raise PackError(f"image.colorSpace {manifest.image.get('colorSpace')!r} is not supported (sRGB only)")
     if manifest.frames.get("format") != "avif":
@@ -161,7 +154,9 @@ def pack(
     out.mkdir(parents=True, exist_ok=True)
     prev = read_pack_log(out)
     sdigest = settings.digest()
-    premult = alpha == PREMULTIPLIED
+    # Delivered AVIF is always straight alpha (DD34, DD44): Chrome ignores the AVIF premultiplied flag, so a
+    # premultiplied file renders with darkened semi-transparent pixels. image.alpha only describes the masters.
+    alpha, premult = STRAIGHT, False
     written = skipped = 0
     cache: tuple[str, np.ndarray] | None = None  # full-size encoded image shared by full + low of one node
 
@@ -242,5 +237,6 @@ def write_final_manifest(
     else:
         image.pop("low", None)
         manifest.frames = {k: v for k, v in manifest.frames.items() if k != "nodeLow"}
+    image["alpha"] = STRAIGHT
     manifest.image = image
     js.atomic_write_text(out / "manifest.json", manifest.dumps())

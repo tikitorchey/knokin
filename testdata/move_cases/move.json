@@ -1,5 +1,5 @@
 {
- "description": "move(): hand-derived from docs/dev/spec-manifest-v0.md section 8. Each case applies drags in order.",
+ "description": "move(): hand-derived from docs/spec.md section 8. Each case applies drags in order.",
  "manifest": "../manifests/grid30_cross.json",
  "opt": {
   "degPerPx": 0.25,

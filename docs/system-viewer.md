@@ -1,6 +1,6 @@
 # ビューア仕様(純関数コア + アプリ)
 
-現在の実装の記述。経緯は [research-notes.md](research-notes.md)。移動ロジックの規則(`move` / `frameAt` / `prefetch`)の本文は [spec-manifest-v0.md](spec-manifest-v0.md) §8。対象は Chrome(PC / Android)。iOS/Safari は対象外。
+現在の実装の記述。経緯は [research-notes.md](research-notes.md)。移動ロジックの規則(`move` / `frameAt` / `prefetch`)の本文は [spec.md](spec.md) §8。対象は Chrome(PC / Android)。iOS/Safari は対象外。
 
 ```
 viewer/                     npm workspaces(DD20)

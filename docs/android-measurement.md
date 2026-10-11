@@ -33,7 +33,7 @@ cd packages/app && npx vite preview --host 0.0.0.0 --port 4173      # dist を�
 
 1. 画面を縦横どちらで測るか決めて固定する(`tag` に入れる)。
 2. パネルの **run scripted drag** を押す。同じ操作(赤道→経線→斜め→反転)が自動で再生される。速度は URL の `speed=<px/s>`(既定 400)。
-3. 終わると **JSON がパネル下のテキスト欄に出る**(`export metrics` でも同じ。ダウンロードも試みるが、スマホでは欄から全選択コピーのほうが確実)。これを保存して `docs/dev/measurements/android-<端末>-<条件>.json` に置く。
+3. 終わると **JSON がパネル下のテキスト欄に出る**(`export metrics` でも同じ。ダウンロードも試みるが、スマホでは欄から全選択コピーのほうが確実)。これを保存して `docs/measurements/android-<端末>-<条件>.json` に置く。
 
 URL だけで条件を指定できる(スライダー操作は不要):
 
@@ -85,6 +85,6 @@ URL だけで条件を指定できる(スライダー操作は不要):
 
 ## 5. 記録の置き方
 
-- JSON: `docs/dev/measurements/android-<端末>-<条件>.json`
+- JSON: `docs/measurements/android-<端末>-<条件>.json`
 - 結果の表と所感: [measurements.md](measurements.md) に「§6 Android 実機」として追記し、端末名・Chrome のバージョン・回線・画面の向きを必ず書く。
 - 数値を推測で埋めない。測っていない欄は「未測定」と書く。

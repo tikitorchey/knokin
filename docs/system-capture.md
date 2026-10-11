@@ -1,6 +1,6 @@
 # 撮影システム仕様(Blender アドオン + ジョブ状態)
 
-現在の実装の記述。経緯は [research-notes.md](research-notes.md)、決定は [decisions.md](decisions.md)。manifest / 座標 / グラフは [spec-manifest-v0.md](spec-manifest-v0.md)。
+現在の実装の記述。経緯は [research-notes.md](research-notes.md)、決定は [decisions.md](decisions.md)。manifest / 座標 / グラフは [spec.md](spec.md)。
 
 | 場所 | 役割 |
 | --- | --- |
@@ -13,7 +13,7 @@
 ## 1. 入力と出力
 
 - 入力: `manifest.json`(グラフ + カメラ + 画像条件)と、撮影する `.blend`(被写体・ライト・ワールドを含む)。
-- 出力: 作業ディレクトリ(`spec-manifest-v0.md` §7)
+- 出力: 作業ディレクトリ(`spec.md` §7)
   - `manifest.json`(撮影開始時の写し)、`capture.jsonl`、`render_meta.json`
   - `masters/n/{node}.exr`、`masters/e/{edge}/{i:04d}.exr`
 - **ライティングはワールド固定**(カメラに追従しない)。カメラ条件は作品ごとに固定で、全フレーム共通。
@@ -58,7 +58,7 @@ EXR は**シーン線形・アルファ乗算済み(associated)**で出る。Ble
 
 ### `place_camera(scene, manifest, θ, φ)`
 
-位置 = `pivot + distance × direction(θ, φ)`、**pivot を向く**、ロール 0(上は +Z)。座標規約は `spec-manifest-v0.md` §2。実描画で向きを目視確認済み(`measurements/coord-check.png`、DD40)。
+位置 = `pivot + distance × direction(θ, φ)`、**pivot を向く**、ロール 0(上は +Z)。座標規約は `spec.md` §2。実描画で向きを目視確認済み(`measurements/coord-check.png`、DD40)。
 
 ### `render_to(scene, path)` / `render_metadata(...)`
 
