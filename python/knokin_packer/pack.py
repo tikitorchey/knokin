@@ -153,7 +153,9 @@ def pack(
     out.mkdir(parents=True, exist_ok=True)
     prev = read_pack_log(out)
     sdigest = settings.digest()
-    premult = alpha == PREMULTIPLIED
+    # Delivered AVIF is always straight alpha (DD34): Chrome ignores the AVIF premultiplied flag, so a
+    # premultiplied file renders with darkened semi-transparent pixels. image.alpha only describes the masters.
+    alpha, premult = STRAIGHT, False
     written = skipped = 0
     cache: tuple[str, np.ndarray] | None = None  # full-size encoded image shared by full + low of one node
 
@@ -232,5 +234,6 @@ def write_final_manifest(
     else:
         image.pop("low", None)
         manifest.frames = {k: v for k, v in manifest.frames.items() if k != "nodeLow"}
+    image["alpha"] = STRAIGHT
     manifest.image = image
     js.atomic_write_text(out / "manifest.json", manifest.dumps())

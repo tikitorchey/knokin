@@ -57,3 +57,4 @@
 | DD31 | 描画 | 最新の1枚だけを `requestAnimationFrame` で描く。遅延 = ポインタイベント時刻 → 描画直後 | 入力から表示までの実遅延を測るため |
 | DD32 | デコード方式 | `createImageBitmap`(既定)と `ImageDecoder` を実行時に切替。`premultiplyAlpha` も切替(premultiply/none/default) | どちらが速いか・縁が正しいかは実機で決める |
 | DD33 | デバッグUI | `?dbg=1` でHUD(遅延/取得/デコードの p50・p95、ヒット率、デコード済み枚数、ヒープ)と MoveOpt/prefetch/キャッシュのスライダー、メトリクスJSONの書き出し | 実機で値を詰める作業を1画面で |
+| DD34 | 配信AVIFのアルファ | 配信物は常に**ストレートアルファ**。パッカーは `alpha_premultiplied` を立てず、最終 manifest の `image.alpha` を `straight` にする(`image.alpha` の元の値はマスターの記述) | Chromium 141 実測: プリマルチプライド版 AVIF(フラグ有無とも)は半透明部が暗く描画され合成 PSNR 25 dB、ストレート版は 44 dB。Chrome は AVIF のプリマルチプライドフラグ・`createImageBitmap` の `premultiplyAlpha` で補正しない。DD22 の「再乗算」は配信物には適用しない |
