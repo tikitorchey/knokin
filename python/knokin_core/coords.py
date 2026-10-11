@@ -1,4 +1,4 @@
-"""Coordinate convention (docs/dev/spec-manifest-v0.md, section 2).
+"""Coordinate convention (docs/spec.md, section 2).
 
 World: Blender world coordinates, +Z up, right-handed. Angles in degrees.
 theta (azimuth): 0 when the camera is on the -Y side, increasing counter-clockwise
