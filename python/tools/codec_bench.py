@@ -10,9 +10,7 @@ premultiplied) sorted by name. Every candidate is scored against the same 8-bit 
 
 Video layout (alpha split): colour = premultiplied sRGB RGB as yuv420p/yuv444p (BT.709, full range),
 alpha = a separate gray-as-yuv420p stream. Rate control is CRF; GOP 1 = all-intra, GOP N = whole edge.
-AVIF is run twice: with the premultiplied flag (what the packer writes today, DD22) and without it. Pillow's
-decode of the flagged file differs strongly from the reference on semi-transparent pixels (PSNR ~25 vs ~37
-dB at q60), so what a browser shows for the flagged file MUST be checked in Chrome before trusting either row.
+AVIF is straight alpha without the premultiplied flag, as the packer delivers (DD34; Chrome ignores the flag).
 Reports bytes/frame, PSNR (alpha, composite over gray and white), decode ms/frame, and the mean number
 of frames decoded to show one arbitrary frame (random access: (gop+1)/2).
 """
@@ -121,21 +119,33 @@ def score(ref: np.ndarray, dec: np.ndarray) -> tuple[float, float, float]:
 
 # ---------------------------------------------------------------- runners
 
-def run_avif(ref: np.ndarray, q: int, sub: str, speed: int, pm: bool) -> Row:
+def _straight(rgba: np.ndarray) -> np.ndarray:
+    a = rgba[..., 3:4].astype(np.float32) / 255
+    c = np.where(a > 0, rgba[..., :3] / np.maximum(a, 1e-6), 0)
+    return np.dstack([np.clip(np.rint(c), 0, 255), rgba[..., 3:]]).astype(np.uint8)
+
+
+def _premul(rgba: np.ndarray) -> np.ndarray:
+    a = rgba[..., 3:4].astype(np.float32) / 255
+    return np.dstack([np.rint(rgba[..., :3] * a), rgba[..., 3:]]).astype(np.uint8)
+
+
+def run_avif(ref: np.ndarray, q: int, sub: str, speed: int) -> Row:
+    """Straight-alpha AVIF, as the packer delivers (DD34); decoded and re-premultiplied to compare with ref."""
     n = len(ref)
     total, dec, t_dec = 0, [], 0.0
     for f in ref:
         buf = io.BytesIO()
-        Image.fromarray(f, "RGBA").save(buf, "AVIF", quality=q, speed=speed, subsampling=sub, alpha_premultiplied=pm)
+        Image.fromarray(_straight(f), "RGBA").save(buf, "AVIF", quality=q, speed=speed, subsampling=sub)
         total += buf.tell()
         buf.seek(0)
         t0 = time.perf_counter()
         im = Image.open(buf)
         im.load()
         t_dec += time.perf_counter() - t0
-        dec.append(np.asarray(im.convert("RGBA"), dtype=np.uint8))  # scored as returned by Pillow/libavif
+        dec.append(_premul(np.asarray(im.convert("RGBA"), dtype=np.uint8)))
     pa, pg, pw = score(ref, np.stack(dec))
-    return Row("avif-frame" + ("[pm-flag]" if pm else "[no-flag]"), f"q{q}/{sub}/s{speed}", 1, n, total / n, pa, pg, pw, 1000 * t_dec / n, 1.0)
+    return Row("avif-frame", f"q{q}/{sub}/s{speed}", 1, n, total / n, pa, pg, pw, 1000 * t_dec / n, 1.0)
 
 
 def _ff(args: list[str], stdin: bytes | None = None) -> bytes:
@@ -219,8 +229,7 @@ def main() -> None:
 
     for q in ([60] if a.quick else [40, 60, 80]):
         for sub in (["4:2:0"] if a.quick else ["4:2:0", "4:4:4"]):
-            for pm in (True, False):
-                keep(run_avif(ref, q, sub, 6, pm))
+            keep(run_avif(ref, q, sub, 6))
     with tempfile.TemporaryDirectory() as td:
         for codec in a.codecs.split(","):
             crfs = CRF_RANGE[codec][1:2] if a.quick else CRF_RANGE[codec]
@@ -232,7 +241,7 @@ def main() -> None:
                         except RuntimeError as e:
                             print(f"SKIP {codec} crf{crf} gop{gop} {subs}: {e}"); continue
 
-    base = next(r.bytes_per_frame for r in rows if r.method == "avif-frame[pm-flag]" and r.param.startswith("q60/4:2:0"))
+    base = next(r.bytes_per_frame for r in rows if r.method == "avif-frame" and r.param.startswith("q60/4:2:0"))
     md = ["| method | param | GOP | KB/frame | vs AVIF q60 | PSNR α | PSNR gray | PSNR white | decode ms/f | frames to show 1 |", "|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         md.append(f"| {r.method} | {r.param} | {r.gop} | {r.bytes_per_frame/1024:.1f} | {r.bytes_per_frame/base:.2f}x | {r.psnr_alpha:.1f} | {r.psnr_gray:.1f} | {r.psnr_white:.1f} | {r.decode_ms_per_frame:.1f} | {r.random_access_frames:.1f} |")
