@@ -13,6 +13,7 @@
     #panel .row { display: grid; grid-template-columns: 90px 1fr 36px; gap: 6px; align-items: center; margin: 3px 0; }
     #panel button { margin: 4px 4px 0 0; }
     .hidden { display: none; }
+    #ver { position: fixed; right: 8px; bottom: 8px; opacity: .45; pointer-events: none; }
     #msg { position: fixed; inset: auto 8px 8px 8px; color: #ff8a80; }
   </style>
 </head>
@@ -23,6 +24,7 @@
     <button id="reset">reset</button><button id="bench">run scripted drag</button><button id="export">export metrics</button><button id="retry">retry failed</button>
     <textarea id="json" rows="6" style="width:100%;margin-top:6px;font:10px monospace" readonly placeholder="metrics JSON appears here (select all, copy)"></textarea>
   </div>
+  <div id="ver"></div>
   <div id="msg"></div>
   <script type="module" src="/src/main.ts"></script>
 </body>

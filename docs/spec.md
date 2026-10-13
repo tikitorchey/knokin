@@ -69,6 +69,7 @@ schema, meta?, coords, camera, image, frames, nodes, edges, start, render?
 
 | キー | 内容 |
 | --- | --- |
+| `meta` | `title`, `created`(日付), `generator`(生成元とその版、例 `knokin-core/0.0.1`), `revision`(データの版 `YYYY-MM-DD.N`、DD48。パッカーが採番。任意で、リーダーは互換性判定に使わない) |
 | `coords` | 規約の宣言。リーダーが実装する規約と完全一致しなければ拒否 |
 | `camera` | `projection`, `focalMm`, `sensorWidthMm`, `distance`, `pivot` |
 | `image` | `width`, `height`, `alpha`(`premultiplied`\|`straight`。**新規は `straight`**、DD34), `colorSpace`(`sRGB`), `low?`(`{width,height}`: 低解像度ノード画像) |

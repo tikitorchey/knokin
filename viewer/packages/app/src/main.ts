@@ -1,4 +1,4 @@
-import { parseManifest, refKey, type Manifest } from '@knokin/core';
+import { parseManifest, refKey, versionLabel, type Manifest } from '@knokin/core';
 import { FrameCache } from './cache';
 import { Controller, DEFAULT_CONTROLLER_OPT, type ShowEvent } from './controller';
 import { DEFAULT_LOADER_OPT, makeLoader, supportsImageDecoder, type Frame, type LoaderOpt } from './loader';
@@ -7,6 +7,8 @@ import { Metrics, formatStats } from './metrics';
 import { CanvasView } from './render';
 import { buildPanel, type Control } from './ui';
 import { makeUrlOf } from './urls';
+
+declare const __APP_VERSION__: string;
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -22,6 +24,8 @@ async function boot(): Promise<void> {
   const res = await fetch(manifestUrl);
   if (!res.ok) throw new Error(`manifest: ${res.status} ${manifestUrl}`);
   const { manifest, graph } = parseManifest(await res.text());
+
+  $('ver').textContent = versionLabel(__APP_VERSION__, manifest.meta);
 
   const metrics = new Metrics();
   // URL overrides so a run is fully described by its URL (useful on a phone: no sliders to set).

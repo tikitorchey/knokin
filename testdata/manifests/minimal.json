@@ -1,6 +1,6 @@
 {
   "schema": "knokin-turntable/0",
-  "meta": { "title": "minimal", "created": "2026-10-10", "generator": "hand-written" },
+  "meta": { "title": "minimal", "created": "2026-10-10", "generator": "hand-written", "revision": "2026-10-13.0" },
   "coords": {
     "unit": "deg",
     "up": "+Z",

@@ -14,6 +14,7 @@ export const COORDS = {
 
 export interface Manifest extends ManifestGraphInput {
   schema: string;
+  meta?: { title?: string; created?: string; generator?: string; revision?: string };
   coords: Record<string, string>;
   camera: Record<string, unknown>;
   image: { width: number; height: number; alpha: string; colorSpace: string; low?: { width: number; height: number } };

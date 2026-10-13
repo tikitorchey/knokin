@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 from dataclasses import asdict, dataclass
+from datetime import date
 from pathlib import Path
 from typing import Callable
 
@@ -23,6 +24,7 @@ from knokin_core.graph import EdgeRef, FrameRef, NodeRef
 from knokin_core.jobs import FrameJob, enumerate_jobs
 from knokin_core.manifest import Manifest, loads
 from knokin_core.resolve import resolve
+from knokin_core.revision import next_revision, parse_revision
 
 from .avif import AvifSettings, downscale, save_avif
 from .color import PREMULTIPLIED, STRAIGHT, bleed_straight, encode_rgba8
@@ -127,7 +129,7 @@ def _up_to_date(out_root: Path, path: str, o: Output, prev: dict | None, sdigest
 def pack(
     workdir: Path, out: Path, settings: PackSettings = PackSettings(), *,
     read: ReadFn = read_exr_rgba, write: WriteFn = save_avif, verify_masters: bool = False,
-    on_progress: Callable[[Output, str], None] | None = None,
+    on_progress: Callable[[Output, str], None] | None = None, today: str | None = None,
 ) -> PackResult:
     manifest_text = (workdir / "manifest.json").read_text(encoding="utf-8")
     manifest = loads(manifest_text)
@@ -191,7 +193,9 @@ def pack(
 
     final_log = read_pack_log(out)
     sizes = {o.key: final_log[o.key]["bytes"] for o in outputs}
-    write_final_manifest(workdir, out, manifest, settings, skip={j.id for j in missing})
+    write_final_manifest(
+        workdir, out, manifest, settings, skip={j.id for j in missing}, files_written=written, today=today,
+    )
     return PackResult(
         written, skipped, len(outputs),
         sum(v for k, v in sizes.items() if k.startswith("full:")),
@@ -214,8 +218,12 @@ def referenced_paths(manifest: Manifest, *, with_low: bool, skip: set[str] = fro
 
 def write_final_manifest(
     workdir: Path, out: Path, manifest: Manifest, settings: PackSettings, *, skip: set[str],
+    files_written: int = 0, today: str | None = None,
 ) -> None:
-    """`skip`: frame ids deliberately not packed (partial test shoot). Empty for a deliverable."""
+    """`skip`: frame ids deliberately not packed (partial test shoot). Empty for a deliverable.
+
+    `meta.revision` (DD48) is bumped only when this run changed the output: a frame was (re)written or the manifest
+    differs from the previous one. A no-op re-pack keeps the revision."""
     low_on = bool(settings.low_width)
     absent = [p for p in referenced_paths(manifest, with_low=low_on, skip=skip) if not (out / p).exists()]
     if absent:
@@ -239,4 +247,22 @@ def write_final_manifest(
         manifest.frames = {k: v for k, v in manifest.frames.items() if k != "nodeLow"}
     image["alpha"] = STRAIGHT
     manifest.image = image
+    manifest.meta = dict(manifest.meta)
+    manifest.meta.pop("revision", None)
+    manifest.meta["revision"] = _revision_for(out / "manifest.json", manifest, files_written, today)
     js.atomic_write_text(out / "manifest.json", manifest.dumps())
+
+
+def _revision_for(path: Path, manifest: Manifest, files_written: int, today: str | None) -> str:
+    prev_rev, prev_body = None, None
+    if path.exists():
+        try:
+            prev_body = json.loads(path.read_text(encoding="utf-8"))
+            prev_rev = (prev_body.get("meta") or {}).pop("revision", None)
+        except (OSError, ValueError, AttributeError):
+            prev_body = None
+    body = manifest.to_dict()
+    body["meta"].pop("revision", None)
+    if files_written == 0 and prev_body == body and parse_revision(prev_rev):
+        return prev_rev
+    return next_revision(today or date.today().isoformat(), prev_rev)

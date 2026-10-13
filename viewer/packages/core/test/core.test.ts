@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve as pathResolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_MOVE_OPT, SchemaError, frameAt, initialState, move, parseManifest, prefetch, refKey, renderTemplate, resolve, totalFrames, type State } from '../src';
+import { DEFAULT_MOVE_OPT, SchemaError, frameAt, initialState, move, parseManifest, parseRevision, compareRevision, versionLabel, prefetch, refKey, renderTemplate, resolve, totalFrames, type State } from '../src';
 import { TESTDATA } from './helpers';
 
 const read = (n: string) => readFileSync(pathResolve(TESTDATA, 'manifests', n), 'utf8');
@@ -84,5 +84,28 @@ describe('move invariants', () => {
       expect(g.edges.get(s.pos.edge)!.kind).toBe('lat');
       expect(g.nodes.get(g.edges.get(s.pos.edge)!.from)!.phi).toBe(0);
     }
+  });
+});
+
+describe('data revision', () => {
+  it('parses and rejects', () => {
+    expect(parseRevision('2026-10-13.12')).toEqual({ date: '2026-10-13', n: 12 });
+    for (const bad of ['2026-10-13', '2026-13-01.0', '2026-02-30.0', 'x.0', undefined, 5]) expect(parseRevision(bad)).toBeNull();
+  });
+  it('compares n numerically', () => {
+    expect(compareRevision('2026-10-13.9', '2026-10-13.10')).toBeLessThan(0);
+    expect(compareRevision('2026-10-14.0', '2026-10-13.99')).toBeGreaterThan(0);
+    expect(compareRevision('2026-10-13.1', '2026-10-13.1')).toBe(0);
+    expect(compareRevision('bad', '2026-10-13.1')).toBeNull();
+  });
+  it('labels, with a placeholder for a manifest without revision', () => {
+    expect(versionLabel('0.0.1', { revision: '2026-10-13.0' })).toBe('app v0.0.1 · data 2026-10-13.0');
+    expect(versionLabel('0.0.1', undefined)).toBe('app v0.0.1 · data -');
+    expect(versionLabel('0.0.1', { revision: 'junk' })).toBe('app v0.0.1 · data -');
+  });
+  it('a manifest with meta.revision still passes the gate', () => {
+    const m = JSON.parse(read('minimal.json'));
+    expect(m.meta.revision).toBe('2026-10-13.0');
+    expect(parseManifest(JSON.stringify(m)).manifest.meta?.revision).toBe('2026-10-13.0');
   });
 });
